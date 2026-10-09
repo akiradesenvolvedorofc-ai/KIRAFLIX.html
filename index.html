@@ -389,7 +389,7 @@ let users=LS.get('users',{}),session=LS.get('session',null),curP=null,customTitl
 let customTabs=LS.get('customTabs',[]), adminUnlocked=false, adminPasswordForCloud='';
 // Cole aqui a publishable/anon key do seu projeto Supabase. Nunca use a service_role key no navegador.
 const SUPABASE_URL='https://fimitukltthqqevupkpc.supabase.co';
-const SUPABASE_KEY='COLE_SUA_SUPABASE_PUBLISHABLE_KEY_AQUI';
+const SUPABASE_KEY='sb_publishable_JlrHt090IzYWyG_gHnJuAQ_1HkzEoep';
 let cloudAvailable=false,cloudLoading=false;
 const cloudHeaders=()=>({'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY,'Content-Type':'application/json'});
 async function cloudLoad(){
