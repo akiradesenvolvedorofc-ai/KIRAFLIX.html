@@ -1,0 +1,26 @@
+KIRAFLIX — pacote com páginas separadas
+
+IMPORTANTE: estes arquivos mantêm o HTML original completo. Para evitar cortar ou reescrever recursos complexos, cada arquivo contém a aplicação original integral e abre numa seção diferente depois do login. Os dados locais continuam no mesmo domínio/origem; a sincronização Supabase continua dependendo da configuração já existente.
+
+ARQUIVOS
+- index.html: início
+- filmes.html: abre Filmes
+- series.html: abre Séries
+- bombando.html: abre Bombando e novidades
+- minha-lista.html: abre Minha lista
+- historico.html: abre Histórico
+- conta.html: abre Conta e ajustes
+
+COMO PUBLICAR
+1. Baixe e extraia o ZIP.
+2. No repositório GitHub que publica o KiraFlix, envie todos os arquivos HTML para a mesma pasta onde está o index.html.
+3. Não apague o index.html original do pacote; faça backup do que já está no GitHub antes de substituir.
+4. Aguarde o GitHub Pages publicar.
+
+EXEMPLOS
+https://kiraflix.qd.je/filmes.html
+https://kiraflix.qd.je/series.html
+https://kiraflix.qd.je/bombando.html
+
+NOTA TÉCNICA
+As páginas são entradas separadas, mas compartilham a aplicação completa e sua navegação interna. Isso preserva funcionalidades existentes; não é uma refatoração em módulos JavaScript compartilhados. O HTML original fornecido foi mantido, com apenas uma seleção de tela inicial baseada no nome do arquivo.
