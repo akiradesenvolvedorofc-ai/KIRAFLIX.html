@@ -1,9 +1,0 @@
-KiraFlix — rotas sem .html no GitHub Pages
-
-1. Faça backup do repositório.
-2. Extraia este ZIP no celular.
-3. No GitHub, envie/substitua index.html na raiz do repositório.
-4. Envie também 404.html na raiz do repositório.
-5. Aguarde o GitHub Pages publicar.
-
-Este pacote usa o arquivo 404.html como fallback para rotas como /filmes e /series, sem precisar enviar pastas. O GitHub Pages pode mostrar comportamento de erro temporário dependendo do cache/publicação. Teste após a publicação.
