@@ -371,7 +371,7 @@ button,a,[role=button],.card,.pitem,.ibtn{-webkit-tap-highlight-color:rgba(0,0,0
 
 <!-- LOGIN -->
 <section id="auth" class="screen hidden">
-  <div class="logo">KIRAFLIXV5</div>
+  <div class="logo">KiraFlix</div>
   <div class="box">
     <div class="tabs2"><button id="tabLogin" class="on">Entrar</button><button id="tabReg">Criar conta</button></div>
     <div class="field hidden" id="fName"><label>Seu nome</label><div class="iw"><i data-lucide="user"></i><input id="aName" placeholder="Nome"></div></div>
@@ -395,7 +395,7 @@ button,a,[role=button],.card,.pitem,.ibtn{-webkit-tap-highlight-color:rgba(0,0,0
 <!-- APP -->
 <div id="app" class="hidden">
   <header class="navbar" id="navbar">
-    <div class="logo" id="navLogo">KIRAFLIXV5</div>
+    <div class="logo" id="navLogo">KiraFlix</div>
     <ul class="nav-links" id="navLinks"></ul>
     <div class="nav-right">
       <div class="search" id="search">
@@ -415,7 +415,7 @@ button,a,[role=button],.card,.pitem,.ibtn{-webkit-tap-highlight-color:rgba(0,0,0
     </div>
   </header>
   <div id="view"></div>
-  <footer><span class="logo">KIRAFLIXV5</span>© 2026 KIRAFLIX · Sua plataforma de entretenimento · Todos os direitos reservados.</footer>
+  <footer><span class="logo">KiraFlix</span>© 2026 KIRAFLIX · Sua plataforma de entretenimento · Todos os direitos reservados.</footer>
   <nav class="mobnav" id="mobnav"></nav>
 </div>
 
@@ -456,7 +456,7 @@ button,a,[role=button],.card,.pitem,.ibtn{-webkit-tap-highlight-color:rgba(0,0,0
 <div id="maint" role="alert" aria-live="polite">
   <div class="m-bg"></div>
   <div class="m-card">
-    <div class="logo">KIRAFLIXV5</div>
+    <div class="logo">KiraFlix</div>
     <div class="m-spinner"><div class="m-ring"></div><div class="m-ring r2"></div><div class="m-orbit"><span class="m-ball"></span></div><div class="m-core"></div></div>
     <h2>Estamos em manutenção</h2>
     <p id="maintMsg"></p>
@@ -762,7 +762,7 @@ const getTabs=()=>{
 };
 function enterApp(p){
   curP=p;LS.set('lastP',p.id);showScreen('app');
-  const sp=document.createElement('div');sp.id='splash';sp.innerHTML='<div class="logo">KIRAFLIXV5</div>';document.body.appendChild(sp);setTimeout(()=>sp.remove(),1800);
+  const sp=document.createElement('div');sp.id='splash';sp.innerHTML='<div class="logo">KiraFlix</div>';document.body.appendChild(sp);setTimeout(()=>sp.remove(),1800);
   const av=$('#navAvatar');av.setAttribute('style',avStyle(p)+';cursor:pointer;margin-left:6px');av.textContent=p.img?'':p.emoji;
   $('#pdrop').innerHTML=`<div class="hd">Perfis</div>${me().profiles.filter(x=>x.id!==p.id).map(x=>`<button data-sw="${x.id}"><div class="avatar sm" style="${avStyle(x)}">${x.img?'':x.emoji}</div>${esc(x.name)}</button>`).join('')}
     <button id="dManage">${ic('pencil')}Gerenciar perfis</button><hr>
