@@ -7,7 +7,7 @@
 <title>KiraFlix</title>
 <script src="https://unpkg.com/lucide@latest"></script>
 <style>
-:root{--red:#ff6b00;--bg:#0a0a0f;--bg2:#15151d;--bg3:#1d1d27;--line:#262633;--txt:#f4f4f7;--mut:#9696a6;--acc:#ff6b00;--accglow:rgba(229,9,20,.45)}
+:root{--red:#e50914;--bg:#0a0a0f;--bg2:#15151d;--bg3:#1d1d27;--line:#262633;--txt:#f4f4f7;--mut:#9696a6;--acc:#e50914;--accglow:rgba(229,9,20,.45)}
 body.kids{--acc:#18b6ff;--accglow:rgba(24,182,255,.45)}
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Inter','Helvetica Neue',Helvetica,Arial,sans-serif}
 html{scroll-behavior:smooth}
@@ -607,7 +607,7 @@ async function cloudSave(){
 }
 let view='home',query='',gfilter='Todos';
 const EMOJIS=['😎','🦊','🐼','🐯','🦄','🐸','🤖','👾','🔥','⭐','🎮','🐱'];
-const COLORS=['#ff6b00','#18b6ff','#8e44ad','#16a085','#f39c12','#e84393','#2ecc71','#34495e'];
+const COLORS=['#e50914','#18b6ff','#8e44ad','#16a085','#f39c12','#e84393','#2ecc71','#34495e'];
 const KID_OK=['L','10'];
 const save=()=>{if(session&&users[session])delete users[session].pass;LS.set('users',users)};
 const me=()=>users[session];
@@ -676,7 +676,7 @@ const BADGE_SPECIAL={
 };
 function badgeContrast(hex){const h=String(hex||'').replace('#','');const f=h.length===3?h.split('').map(c=>c+c).join(''):h.slice(0,6);const n=parseInt(f,16);if(Number.isNaN(n))return '#fff';const r=(n>>16)&255,g=(n>>8)&255,b=n&255;return (r*299+g*587+b*114)/1000>150?'#000':'#fff'}
 function badgeInfo(t){
-  if(t.status==='personalizado'){const c=/^#[0-9a-f]{3,8}$/i.test(t.badgeColor||'')?t.badgeColor:'#ff6b00';return {label:String(t.badgeText||'Selo').slice(0,18),icon:'tag',bg:c,fg:badgeContrast(c)}}
+  if(t.status==='personalizado'){const c=/^#[0-9a-f]{3,8}$/i.test(t.badgeColor||'')?t.badgeColor:'#e50914';return {label:String(t.badgeText||'Selo').slice(0,18),icon:'tag',bg:c,fg:badgeContrast(c)}}
   return BADGE_SPECIAL[t.status]||null;
 }
 function badgeSpan(sp,extra=''){return `<span class="badge" style="${extra}background:${sp.bg};color:${sp.fg};box-shadow:none">${ic(sp.icon)}${esc(sp.label.toUpperCase())}</span>`}
@@ -1182,7 +1182,7 @@ function openTitleForm(existing=null){
   <div class="field"><label>Gênero</label><input id="tfG" list="gl" value="${esc(t.genre||'')}" placeholder="Ação, Comédia…"><datalist id="gl">${Object.keys(GICON).map(g=>`<option>${g}</option>`).join('')}</datalist></div></div>
   <div class="row2"><div class="field"><label>Ano</label><input id="tfY" type="number" value="${t.year||new Date().getFullYear()}"></div><div class="field"><label>Classificação</label><select id="tfR">${['L','10','12','14','16','18'].map(r=>`<option ${String(t.rating||'L')===r?'selected':''}>${r}</option>`).join('')}</select></div></div>
   <div class="field"><label>Selo do título</label><select id="tfStatus"><option value="nenhum" ${!t.status||t.status==='nenhum'?'selected':''}>Sem selo</option><option value="novo" ${t.status==='novo'?'selected':''}>Novo</option><option value="lancamento" ${t.status==='lancamento'?'selected':''}>Lançamento</option><option value="em_breve" ${t.status==='em_breve'?'selected':''}>Em breve</option><option value="em_alta" ${t.status==='em_alta'?'selected':''}>Em alta</option><option value="mais_avaliado" ${t.status==='mais_avaliado'?'selected':''}>Mais avaliado</option><option value="dublado" ${t.status==='dublado'?'selected':''}>Dublado</option><option value="legendado" ${t.status==='legendado'?'selected':''}>Legendado</option><option value="especial" ${t.status==='especial'?'selected':''}>Especial</option><option value="manutencao" ${t.status==='manutencao'?'selected':''}>Manutenção</option><option value="personalizado" ${t.status==='personalizado'?'selected':''}>Personalizado (digitar texto e escolher cor)</option></select><small style="display:block;color:var(--mut);font-size:.76rem;margin-top:6px">Os selos “Novo” e “Lançamento” saem sozinhos a cada 2 semanas e meia. Os demais ficam até você trocar.</small></div>
-  <div id="tfCustomBadge" style="display:${t.status==='personalizado'?'block':'none'}"><div class="row2"><div class="field"><label>Texto do selo</label><input id="tfBadgeText" maxlength="18" value="${esc(t.badgeText||'')}" placeholder="Ex.: Exclusivo"></div><div class="field"><label>Cor do selo</label><input id="tfBadgeColor" type="color" value="${esc(/^#[0-9a-f]{6}$/i.test(t.badgeColor||'')?t.badgeColor:'#ff6b00')}" style="padding:4px;height:46px"></div></div></div>
+  <div id="tfCustomBadge" style="display:${t.status==='personalizado'?'block':'none'}"><div class="row2"><div class="field"><label>Texto do selo</label><input id="tfBadgeText" maxlength="18" value="${esc(t.badgeText||'')}" placeholder="Ex.: Exclusivo"></div><div class="field"><label>Cor do selo</label><input id="tfBadgeColor" type="color" value="${esc(/^#[0-9a-f]{6}$/i.test(t.badgeColor||'')?t.badgeColor:'#e50914')}" style="padding:4px;height:46px"></div></div></div>
   <div class="field"><label>Adicionar à aba (opcional)</label><select id="tfTab"><option value="">Nenhuma aba personalizada</option>${customTabs.map(x=>`<option value="${esc(x.id)}" ${titleTabId(t)===x.id?'selected':''}>${esc(x.name)}</option>`).join('')}</select></div>
   <div class="field"><label>Link do vídeo ou player externo</label><input id="tfS" type="url" value="${esc(t.src||'')}" placeholder="https://myembed.biz/filme/969681" inputmode="url"><small style="display:block;color:var(--mut);font-size:.76rem;margin-top:6px">Link de player externo ou link direto de vídeo MP4/WebM.</small></div>
   <div class="field"><label>Link da capa do filme (opcional)</label><input id="tfP" type="url" value="${esc(t.poster||'')}" placeholder="https://.../poster.jpg"></div>
