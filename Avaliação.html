@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#08080c">
-<meta name="description" content="Central oficial de avaliações do KiraFlix">
+<meta name="description" content="Central oficial de avaliações KiraFlix">
 <title>KiraFlix — Avaliações</title>
 
 <script src="https://unpkg.com/lucide@latest"></script>
@@ -36,9 +36,9 @@ body {
   overflow-x:hidden;
 }
 
-button,input,textarea,select { font:inherit; }
-button { cursor:pointer; }
-a { color:inherit; text-decoration:none; }
+button,input,textarea,select {font:inherit}
+button {cursor:pointer}
+a {color:inherit;text-decoration:none}
 
 .bg-glow {
   position:fixed;
@@ -57,7 +57,7 @@ a { color:inherit; text-decoration:none; }
 /* HEADER */
 
 header {
-  height:82px;
+  height:78px;
   display:flex;
   align-items:center;
   justify-content:space-between;
@@ -65,7 +65,7 @@ header {
   position:relative;
   z-index:10;
   border-bottom:1px solid var(--border);
-  background:rgba(8,8,12,.78);
+  background:rgba(8,8,12,.82);
   backdrop-filter:blur(18px);
   -webkit-backdrop-filter:blur(18px);
 }
@@ -78,7 +78,7 @@ header {
   text-shadow:0 0 22px #ff2a2a55;
 }
 
-.logo span { color:white; }
+.logo span {color:white}
 
 .menu-btn,.close-btn {
   width:44px;
@@ -218,7 +218,7 @@ h1 em {
 
 /* FORMULÁRIO */
 
-.field { margin-bottom:17px; }
+.field {margin-bottom:17px}
 
 .field label {
   display:block;
@@ -228,8 +228,7 @@ h1 em {
   margin-bottom:8px;
 }
 
-.field input,
-.field textarea {
+.field input,.field textarea {
   width:100%;
   border:1px solid var(--border);
   outline:none;
@@ -240,8 +239,7 @@ h1 em {
   transition:.2s;
 }
 
-.field input:focus,
-.field textarea:focus {
+.field input:focus,.field textarea:focus {
   border-color:#ff2a2a99;
   box-shadow:0 0 0 3px #ff2a2a15;
 }
@@ -257,15 +255,21 @@ h1 em {
   color:#626775;
 }
 
-/* DROPDOWNS PERSONALIZADOS */
+/* ESCONDER SELECT ORIGINAL */
 
 .native-select-hidden {
-  display:none !important;
+  display:none!important;
 }
+
+/* DROPDOWNS */
 
 .custom-select {
   position:relative;
   width:100%;
+}
+
+.custom-select.open {
+  z-index:102;
 }
 
 .custom-select-trigger {
@@ -274,9 +278,11 @@ h1 em {
   padding:13px 16px;
   border:1px solid #ffffff15;
   border-radius:14px;
+
   background:
     radial-gradient(ellipse at right top,#ff2a2a12,transparent 65%),
     linear-gradient(135deg,#19141b,#101017);
+
   color:#f8fafc;
   display:flex;
   align-items:center;
@@ -310,27 +316,30 @@ h1 em {
   left:0;
   right:0;
   z-index:103;
+
   padding:7px;
-  border:1px solid #ff2a2a44;
+  border:1px solid #ff2a2a55;
   border-radius:16px;
 
   background:
-    radial-gradient(ellipse at top right,#ff2a2a20,transparent 55%),
-    linear-gradient(145deg,#1b171e,#101015);
+    radial-gradient(ellipse at top right,#ff2a2a24,transparent 55%),
+    linear-gradient(145deg,#211820,#101015);
 
   box-shadow:
-    0 20px 60px #000c,
-    0 0 25px #ff202018;
+    0 20px 60px #000d,
+    0 0 25px #ff202022;
 
   opacity:0;
   visibility:hidden;
   pointer-events:none;
+
   transform:translateY(-8px) scale(.98);
   transform-origin:top;
-  transition:.22s ease;
+  transition:opacity .2s ease,transform .2s ease,visibility .2s;
 
   max-height:260px;
   overflow-y:auto;
+  overscroll-behavior:contain;
 }
 
 .custom-select.open .custom-select-menu {
@@ -342,19 +351,20 @@ h1 em {
 
 .custom-select-option {
   width:100%;
-  min-height:44px;
+  min-height:45px;
   padding:12px;
   display:flex;
   align-items:center;
   justify-content:space-between;
   gap:10px;
+
   color:#d1d5db;
   background:transparent;
   border:1px solid transparent;
   border-radius:10px;
   text-align:left;
   font-size:14px;
-  transition:.2s;
+  transition:.18s;
 }
 
 .custom-select-option:hover {
@@ -399,19 +409,23 @@ h1 em {
     radial-gradient(ellipse at center,#8f10183b,transparent 65%),
     rgba(0,0,0,.76);
 
-  backdrop-filter:blur(8px) saturate(125%);
-  -webkit-backdrop-filter:blur(8px) saturate(125%);
+  backdrop-filter:blur(9px) saturate(130%);
+  -webkit-backdrop-filter:blur(9px) saturate(130%);
 
   opacity:0;
   visibility:hidden;
   pointer-events:none;
-  transition:.25s;
+  transition:opacity .22s ease,visibility .22s ease;
 }
 
 .dropdown-backdrop.active {
   opacity:1;
   visibility:visible;
   pointer-events:auto;
+}
+
+body.dropdown-open {
+  overflow:hidden;
 }
 
 /* NOTAS */
@@ -433,8 +447,7 @@ h1 em {
   transition:.15s;
 }
 
-.star-btn.active,
-.star-btn:hover {
+.star-btn.active,.star-btn:hover {
   color:var(--gold);
   transform:scale(1.12);
 }
@@ -445,7 +458,7 @@ h1 em {
   margin-left:5px;
 }
 
-/* BOTÃO */
+/* BOTÕES */
 
 .btn {
   width:100%;
@@ -468,9 +481,7 @@ h1 em {
   box-shadow:0 13px 32px #ff2a2a50;
 }
 
-.btn:active {
-  transform:scale(.97);
-}
+.btn:active {transform:scale(.97)}
 
 .btn:disabled {
   opacity:.6;
@@ -489,7 +500,7 @@ h1 em {
   line-height:1.5;
 }
 
-.notice.show { display:block; }
+.notice.show {display:block}
 
 .notice.success {
   color:#a7f3d0;
@@ -519,7 +530,7 @@ h1 em {
   margin-bottom:17px;
 }
 
-.reviews-head h2 { margin:0; }
+.reviews-head h2 {margin:0}
 
 .review-list {
   display:flex;
@@ -532,6 +543,12 @@ h1 em {
   background:#0d0d13;
   border-radius:15px;
   padding:16px;
+  animation:reviewIn .3s ease both;
+}
+
+@keyframes reviewIn {
+  from {opacity:0;transform:translateY(8px)}
+  to {opacity:1;transform:translateY(0)}
 }
 
 .review-top {
@@ -625,14 +642,14 @@ h1 em {
   line-height:1.7;
 }
 
-.footer b { color:#a1a1aa; }
+.footer b {color:#a1a1aa}
 
 /* BACKDROP DO MENU */
 
 .overlay {
   position:fixed;
   inset:0;
-  z-index:98;
+  z-index:109;
 
   background:
     radial-gradient(ellipse at 78% 45%,#8f10183d 0%,transparent 48%),
@@ -657,7 +674,7 @@ h1 em {
 
 .side-menu {
   position:fixed;
-  z-index:99;
+  z-index:110;
   top:0;
   right:-330px;
   width:min(310px,88vw);
@@ -691,7 +708,7 @@ h1 em {
   pointer-events:none;
 }
 
-.side-menu.active { right:0; }
+.side-menu.active {right:0}
 
 .menu-header {
   display:flex;
@@ -756,7 +773,7 @@ h1 em {
 /* RESPONSIVIDADE */
 
 @media(max-width:800px) {
-  .layout { grid-template-columns:1fr; }
+  .layout {grid-template-columns:1fr}
 }
 
 @media(max-width:520px) {
@@ -770,18 +787,16 @@ h1 em {
     padding-top:28px;
   }
 
-  .hero {
-    padding:16px 2px 28px;
-  }
+  .hero {padding:16px 2px 28px}
 
-  .stats { gap:8px; }
+  .stats {gap:8px}
 
   .stat {
     padding:17px 7px;
     border-radius:14px;
   }
 
-  .stat span { font-size:10px; }
+  .stat span {font-size:10px}
 
   .panel {
     padding:19px 15px;
@@ -793,9 +808,7 @@ h1 em {
     flex-direction:column;
   }
 
-  .reviews-head .custom-select {
-    width:100%;
-  }
+  .reviews-head .custom-select {width:100%}
 }
 </style>
 </head>
@@ -805,7 +818,10 @@ h1 em {
 <div class="bg-glow"></div>
 
 <header>
-  <a href="#" class="logo">Kira<span>Flix</span></a>
+  <a href="https://kiraflix.qd.je/" class="logo">
+    Kira<span>Flix</span>
+  </a>
+
   <button class="menu-btn" id="openMenu" aria-label="Abrir menu">
     <i data-lucide="menu"></i>
   </button>
@@ -814,6 +830,7 @@ h1 em {
 <main>
 
 <section class="hero">
+
   <div class="badge">
     <i data-lucide="star" width="14"></i>
     CENTRAL OFICIAL DE AVALIAÇÕES
@@ -826,6 +843,7 @@ h1 em {
     compartilhe sua opinião e ajude a melhorar o KiraFlix
     para toda a comunidade.
   </p>
+
 </section>
 
 <section class="stats">
@@ -870,22 +888,27 @@ h1 em {
     </div>
 
     <div class="field">
+
       <label>Sua nota para o KiraFlix</label>
 
       <div class="rating-picker">
-        <button class="star-btn" type="button" data-rating="1">★</button>
-        <button class="star-btn" type="button" data-rating="2">★</button>
-        <button class="star-btn" type="button" data-rating="3">★</button>
-        <button class="star-btn" type="button" data-rating="4">★</button>
-        <button class="star-btn" type="button" data-rating="5">★</button>
+
+        <button class="star-btn" type="button" data-rating="1" aria-label="1 estrela">★</button>
+        <button class="star-btn" type="button" data-rating="2" aria-label="2 estrelas">★</button>
+        <button class="star-btn" type="button" data-rating="3" aria-label="3 estrelas">★</button>
+        <button class="star-btn" type="button" data-rating="4" aria-label="4 estrelas">★</button>
+        <button class="star-btn" type="button" data-rating="5" aria-label="5 estrelas">★</button>
 
         <span class="rating-hint" id="ratingHint">
           Selecione de 1 a 5
         </span>
+
       </div>
+
     </div>
 
     <div class="field">
+
       <label>O que você deseja avaliar?</label>
 
       <select id="category">
@@ -897,6 +920,7 @@ h1 em {
         <option value="Players">Players</option>
         <option value="Velocidade e desempenho">Velocidade e desempenho</option>
       </select>
+
     </div>
 
     <div class="field">
@@ -918,13 +942,16 @@ h1 em {
     </button>
 
   </form>
+
 </div>
 
 <div class="panel">
 
   <div class="reviews-head">
+
     <div>
       <h2>O que estão dizendo</h2>
+
       <p class="panel-sub" style="margin:5px 0 0">
         Opiniões compartilhadas pela comunidade.
       </p>
@@ -935,6 +962,7 @@ h1 em {
       <option value="highest">Melhores notas</option>
       <option value="lowest">Menores notas</option>
     </select>
+
   </div>
 
   <div id="reviewList" class="review-list">
@@ -954,19 +982,23 @@ h1 em {
 </main>
 
 <!-- BACKDROP DO MENU -->
+
 <div class="overlay" id="overlay"></div>
 
 <!-- MENU LATERAL -->
+
 <aside class="side-menu" id="sideMenu">
 
   <div class="menu-header">
+
     <span class="logo" style="font-size:21px">
       Kira<span>Flix</span>
     </span>
 
-    <button class="close-btn" id="closeMenu">
+    <button class="close-btn" id="closeMenu" aria-label="Fechar menu">
       <i data-lucide="x"></i>
     </button>
+
   </div>
 
   <div class="menu-body">
@@ -1014,16 +1046,16 @@ const SUPABASE_URL =
 const SUPABASE_ANON_KEY =
   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFodHVocnppemx3Y3ZyZ2J6aXZ4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTE1MDY4NzMsImV4cCI6MjEwNzA4Mjg3M30.Wy2EfRP8UicZBi-ViUOVd_K6E19Peq1PIPVlVuEV7wI";
 
-const hasConfig =
-  SUPABASE_URL.startsWith("https://") &&
-  SUPABASE_ANON_KEY.length > 20 &&
-  !SUPABASE_ANON_KEY.includes("COLE_SUA_CHAVE");
-
-let db = null;
-let selectedRating = 0;
-let allReviews = [];
+const db = window.supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_ANON_KEY
+);
 
 const $ = id => document.getElementById(id);
+
+let selectedRating = 0;
+let allReviews = [];
+let loadingReviews = false;
 
 /* =====================================
    AVISOS
@@ -1031,6 +1063,7 @@ const $ = id => document.getElementById(id);
 
 function showNotice(message,type="info") {
   const el = $("formNotice");
+
   el.textContent = message;
   el.className = "notice show " + type;
 }
@@ -1045,10 +1078,13 @@ function clearNotice() {
 ===================================== */
 
 function setRating(value) {
+
   selectedRating = value;
 
   document.querySelectorAll(".star-btn").forEach(button => {
-    const active = Number(button.dataset.rating) <= value;
+
+    const active =
+      Number(button.dataset.rating) <= value;
 
     button.classList.toggle("active",active);
 
@@ -1056,16 +1092,20 @@ function setRating(value) {
       "aria-pressed",
       String(Number(button.dataset.rating) === value)
     );
+
   });
 
   $("ratingHint").textContent =
     value + (value === 1 ? " estrela" : " estrelas");
+
 }
 
 document.querySelectorAll(".star-btn").forEach(button => {
+
   button.addEventListener("click",() => {
     setRating(Number(button.dataset.rating));
   });
+
 });
 
 /* =====================================
@@ -1073,9 +1113,17 @@ document.querySelectorAll(".star-btn").forEach(button => {
 ===================================== */
 
 function formatDate(value) {
+
+  const date = new Date(value);
+
+  if (Number.isNaN(date.getTime())) {
+    return "Data indisponível";
+  }
+
   return new Intl.DateTimeFormat("pt-BR",{
     dateStyle:"medium"
-  }).format(new Date(value));
+  }).format(date);
+
 }
 
 /* =====================================
@@ -1083,15 +1131,16 @@ function formatDate(value) {
 ===================================== */
 
 function renderStats(reviews) {
+
   const count = reviews.length;
 
   const average = count
-    ? reviews.reduce((sum,item) => sum + item.rating,0) / count
+    ? reviews.reduce((sum,item) => sum + Number(item.rating),0) / count
     : 0;
 
   const positive = count
     ? Math.round(
-        reviews.filter(item => item.rating >= 4).length / count * 100
+        reviews.filter(item => Number(item.rating) >= 4).length / count * 100
       )
     : 0;
 
@@ -1109,6 +1158,7 @@ function renderStats(reviews) {
     ? "★".repeat(Math.round(average)) +
       "☆".repeat(5 - Math.round(average))
     : "☆☆☆☆☆";
+
 }
 
 /* =====================================
@@ -1116,29 +1166,38 @@ function renderStats(reviews) {
 ===================================== */
 
 function renderReviews() {
+
   const sort = $("sortReviews").value;
   const reviews = [...allReviews];
 
   if (sort === "highest") {
+
     reviews.sort((a,b) =>
-      b.rating - a.rating ||
+      Number(b.rating) - Number(a.rating) ||
       new Date(b.created_at) - new Date(a.created_at)
     );
+
   } else if (sort === "lowest") {
+
     reviews.sort((a,b) =>
-      a.rating - b.rating ||
+      Number(a.rating) - Number(b.rating) ||
       new Date(b.created_at) - new Date(a.created_at)
     );
+
   } else {
+
     reviews.sort(
-      (a,b) => new Date(b.created_at) - new Date(a.created_at)
+      (a,b) =>
+        new Date(b.created_at) - new Date(a.created_at)
     );
+
   }
 
   const list = $("reviewList");
   list.replaceChildren();
 
   if (!reviews.length) {
+
     const empty = document.createElement("div");
     empty.className = "empty";
 
@@ -1157,9 +1216,11 @@ function renderReviews() {
 
     lucide.createIcons();
     return;
+
   }
 
   reviews.forEach(review => {
+
     const card = document.createElement("article");
     card.className = "review";
 
@@ -1180,9 +1241,15 @@ function renderReviews() {
 
     const stars = document.createElement("div");
     stars.className = "review-stars";
+
+    const rating = Math.max(
+      1,
+      Math.min(5,Number(review.rating))
+    );
+
     stars.textContent =
-      "★".repeat(review.rating) +
-      "☆".repeat(5 - review.rating);
+      "★".repeat(rating) +
+      "☆".repeat(5-rating);
 
     top.append(identity,stars);
 
@@ -1199,36 +1266,55 @@ function renderReviews() {
     message.textContent = review.message;
 
     card.append(top,category,title,message);
+
     list.append(card);
+
   });
+
 }
 
 /* =====================================
-   BUSCAR AVALIAÇÕES NO SUPABASE
+   BUSCAR AVALIAÇÕES
 ===================================== */
 
 async function loadReviews() {
-  if (!db) return;
 
-  const {data,error} = await db
-    .from("kiraflix_reviews")
-    .select("id,nickname,rating,category,title,message,created_at")
-    .order("created_at",{ascending:false})
-    .limit(200);
+  if (loadingReviews) return;
 
-  if (error) {
+  loadingReviews = true;
+
+  try {
+
+    const {data,error} = await db
+      .from("kiraflix_reviews")
+      .select("id,nickname,rating,category,title,message,created_at")
+      .order("created_at",{ascending:false})
+      .limit(200);
+
+    if (error) throw error;
+
+    allReviews = data || [];
+
+    renderStats(allReviews);
+    renderReviews();
+
+  } catch(error) {
+
     console.error("Erro ao carregar avaliações:",error);
 
-    $("reviewList").textContent =
-      "Não foi possível carregar as avaliações. Confira a configuração do Supabase.";
+    if (!allReviews.length) {
 
-    return;
+      $("reviewList").textContent =
+        "Não foi possível carregar as avaliações. Verifique a tabela e as políticas RLS do Supabase.";
+
+    }
+
+  } finally {
+
+    loadingReviews = false;
+
   }
 
-  allReviews = data || [];
-
-  renderStats(allReviews);
-  renderReviews();
 }
 
 /* =====================================
@@ -1236,23 +1322,19 @@ async function loadReviews() {
 ===================================== */
 
 $("reviewForm").addEventListener("submit",async event => {
+
   event.preventDefault();
   clearNotice();
 
-  if (!db) {
-    showNotice(
-      "Configure a chave pública do Supabase no código.",
-      "error"
-    );
-    return;
-  }
-
   if (!selectedRating) {
+
     showNotice(
       "Escolha uma nota de 1 a 5 estrelas.",
       "error"
     );
+
     return;
+
   }
 
   const nickname = $("nickname").value.trim();
@@ -1265,19 +1347,29 @@ $("reviewForm").addEventListener("submit",async event => {
     title.length < 3 ||
     message.length < 5
   ) {
+
     showNotice(
       "Confira os campos antes de publicar.",
       "error"
     );
+
     return;
+
   }
+
+  if (
+    nickname.length > 40 ||
+    title.length > 70 ||
+    message.length > 1000
+  ) return;
 
   const button = $("submitBtn");
 
   button.disabled = true;
-  button.textContent = "Publicando...";
+  button.innerHTML = "Publicando...";
 
   try {
+
     const {error} = await db
       .from("kiraflix_reviews")
       .insert([{
@@ -1291,6 +1383,7 @@ $("reviewForm").addEventListener("submit",async event => {
     if (error) throw error;
 
     $("reviewForm").reset();
+
     setRating(0);
 
     showNotice(
@@ -1301,20 +1394,25 @@ $("reviewForm").addEventListener("submit",async event => {
     await loadReviews();
 
   } catch(error) {
+
     console.error("Erro ao publicar:",error);
 
     showNotice(
-      "Não foi possível publicar. Confira as políticas RLS do Supabase.",
+      "Não foi possível publicar. Verifique as políticas RLS e a conexão com o Supabase.",
       "error"
     );
 
   } finally {
+
     button.disabled = false;
+
     button.innerHTML =
       '<i data-lucide="send" width="18"></i> Publicar avaliação';
 
     lucide.createIcons();
+
   }
+
 });
 
 /* =====================================
@@ -1322,28 +1420,35 @@ $("reviewForm").addEventListener("submit",async event => {
 ===================================== */
 
 const dropdownBackdrop = document.createElement("div");
+
 dropdownBackdrop.className = "dropdown-backdrop";
 dropdownBackdrop.setAttribute("aria-hidden","true");
+
 document.body.appendChild(dropdownBackdrop);
 
 function closeCustomDropdowns() {
+
   document.querySelectorAll(".custom-select.open")
     .forEach(dropdown => {
+
       dropdown.classList.remove("open");
 
-      const trigger = dropdown.querySelector(
-        ".custom-select-trigger"
-      );
+      const trigger =
+        dropdown.querySelector(".custom-select-trigger");
 
       if (trigger) {
         trigger.setAttribute("aria-expanded","false");
       }
+
     });
 
   dropdownBackdrop.classList.remove("active");
+  document.body.classList.remove("dropdown-open");
+
 }
 
 function createCustomDropdown(selectId) {
+
   const original = $(selectId);
 
   if (!original || original.dataset.customized) return;
@@ -1355,6 +1460,7 @@ function createCustomDropdown(selectId) {
   wrapper.className = "custom-select";
 
   const trigger = document.createElement("button");
+
   trigger.type = "button";
   trigger.className = "custom-select-trigger";
   trigger.setAttribute("aria-haspopup","listbox");
@@ -1364,16 +1470,20 @@ function createCustomDropdown(selectId) {
   const arrow = document.createElement("span");
 
   arrow.className = "custom-select-arrow";
-  arrow.innerHTML = '<i data-lucide="chevron-down"></i>';
+  arrow.innerHTML =
+    '<i data-lucide="chevron-down"></i>';
 
   trigger.append(label,arrow);
 
   const menu = document.createElement("div");
+
   menu.className = "custom-select-menu";
   menu.setAttribute("role","listbox");
 
   function updateSelection() {
-    const selected = original.options[original.selectedIndex];
+
+    const selected =
+      original.options[original.selectedIndex];
 
     label.textContent = selected
       ? selected.textContent
@@ -1381,15 +1491,23 @@ function createCustomDropdown(selectId) {
 
     menu.querySelectorAll(".custom-select-option")
       .forEach((button,index) => {
+
         const active =
           original.options[index].value === original.value;
 
         button.classList.toggle("selected",active);
-        button.setAttribute("aria-selected",String(active));
+
+        button.setAttribute(
+          "aria-selected",
+          String(active)
+        );
+
       });
+
   }
 
   Array.from(original.options).forEach(option => {
+
     const item = document.createElement("button");
 
     item.type = "button";
@@ -1405,7 +1523,10 @@ function createCustomDropdown(selectId) {
 
     item.append(text,check);
 
-    item.addEventListener("click",() => {
+    item.addEventListener("click",event => {
+
+      event.stopPropagation();
+
       original.value = option.value;
 
       original.dispatchEvent(
@@ -1414,22 +1535,36 @@ function createCustomDropdown(selectId) {
 
       updateSelection();
       closeCustomDropdowns();
+
     });
 
     menu.appendChild(item);
+
   });
 
-  trigger.addEventListener("click",() => {
-    const wasOpen = wrapper.classList.contains("open");
+  trigger.addEventListener("click",event => {
+
+    event.stopPropagation();
+
+    const wasOpen =
+      wrapper.classList.contains("open");
 
     closeCustomDropdowns();
 
     if (!wasOpen) {
+
       wrapper.classList.add("open");
-      trigger.setAttribute("aria-expanded","true");
+
+      trigger.setAttribute(
+        "aria-expanded","true"
+      );
 
       dropdownBackdrop.classList.add("active");
+
+      document.body.classList.add("dropdown-open");
+
     }
+
   });
 
   original.addEventListener("change",updateSelection);
@@ -1439,30 +1574,48 @@ function createCustomDropdown(selectId) {
   original.parentNode.insertBefore(wrapper,original);
 
   updateSelection();
+
 }
+
+/* Inicializa os dois dropdowns */
 
 createCustomDropdown("category");
 createCustomDropdown("sortReviews");
+
+/* Fechar ao tocar fora */
 
 dropdownBackdrop.addEventListener(
   "click",
   closeCustomDropdowns
 );
 
+/* Atualizar ordenação */
+
+$("sortReviews").addEventListener("change",() => {
+  renderReviews();
+});
+
 /* =====================================
    MENU LATERAL
 ===================================== */
 
 function toggleMenu(force) {
+
   const active = typeof force === "boolean"
     ? force
     : !$("sideMenu").classList.contains("active");
 
   $("sideMenu").classList.toggle("active",active);
   $("overlay").classList.toggle("active",active);
+
+  document.body.style.overflow = active
+    ? "hidden"
+    : "";
+
 }
 
 $("openMenu").addEventListener("click",() => {
+  closeCustomDropdowns();
   toggleMenu(true);
 });
 
@@ -1475,14 +1628,18 @@ $("overlay").addEventListener("click",() => {
 });
 
 /* =====================================
-   TECLADO / VOLTAR
+   TECLADO
 ===================================== */
 
 document.addEventListener("keydown",event => {
+
   if (event.key === "Escape") {
+
     closeCustomDropdowns();
     toggleMenu(false);
+
   }
+
 });
 
 /* =====================================
@@ -1491,23 +1648,13 @@ document.addEventListener("keydown",event => {
 
 lucide.createIcons();
 
-if (hasConfig) {
-  const {createClient} = supabase;
+loadReviews();
 
-  db = createClient(
-    SUPABASE_URL,
-    SUPABASE_ANON_KEY
-  );
+/* Atualizar avaliações a cada 30 segundos */
 
+setInterval(() => {
   loadReviews();
-
-  // Atualizar avaliações a cada 30 segundos.
-  setInterval(loadReviews,30000);
-
-} else {
-  $("reviewList").innerHTML =
-    '<div class="empty"><strong>Quase pronto!</strong><span>Configure a chave pública do Supabase para ativar as avaliações.</span></div>';
-}
+},30000);
 
 </script>
 
