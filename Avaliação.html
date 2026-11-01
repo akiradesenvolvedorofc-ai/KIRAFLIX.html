@@ -2,9 +2,8 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#08080c">
-<meta name="description" content="Central oficial de avaliações KiraFlix">
 <title>KiraFlix — Avaliações</title>
 
 <script src="https://unpkg.com/lucide@latest"></script>
@@ -30,26 +29,26 @@
 }
 
 body {
-  min-height:100vh;
   background:var(--bg);
   color:var(--text);
+  min-height:100vh;
   overflow-x:hidden;
 }
 
 button,input,textarea,select {font:inherit}
 button {cursor:pointer}
-a {color:inherit;text-decoration:none}
+a {text-decoration:none;color:inherit}
 
 .bg-glow {
   position:fixed;
-  width:520px;
-  height:520px;
+  top:40%;
   left:50%;
-  top:35%;
   transform:translate(-50%,-50%);
+  width:500px;
+  height:500px;
   background:var(--red);
-  filter:blur(170px);
-  opacity:.09;
+  filter:blur(160px);
+  opacity:.08;
   pointer-events:none;
   z-index:0;
 }
@@ -57,17 +56,15 @@ a {color:inherit;text-decoration:none}
 /* HEADER */
 
 header {
-  height:78px;
   display:flex;
   align-items:center;
   justify-content:space-between;
-  padding:0 5%;
+  padding:20px 24px;
   position:relative;
   z-index:10;
   border-bottom:1px solid var(--border);
-  background:rgba(8,8,12,.82);
-  backdrop-filter:blur(18px);
-  -webkit-backdrop-filter:blur(18px);
+  background:rgba(8,8,12,.8);
+  backdrop-filter:blur(15px);
 }
 
 .logo {
@@ -75,7 +72,7 @@ header {
   font-size:25px;
   font-weight:950;
   letter-spacing:-1px;
-  text-shadow:0 0 22px #ff2a2a55;
+  text-shadow:0 0 20px #ff2a2a55;
 }
 
 .logo span {color:white}
@@ -83,59 +80,58 @@ header {
 .menu-btn,.close-btn {
   width:44px;
   height:44px;
-  display:grid;
-  place-items:center;
-  border:1px solid var(--border);
-  border-radius:13px;
-  color:white;
+  display:flex;
+  align-items:center;
+  justify-content:center;
   background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:12px;
+  color:white;
   transition:.2s;
 }
 
 .menu-btn:hover,.close-btn:hover {
   color:var(--red);
   border-color:var(--red);
-  background:#ff2a2a12;
 }
 
 .menu-btn:active,.close-btn:active {
-  transform:scale(.9) rotate(5deg);
+  transform:scale(.9);
 }
 
-/* MAIN */
+/* CONTEÚDO */
 
 main {
-  width:min(1120px,92%);
+  width:min(1100px,92%);
   margin:auto;
+  padding:45px 0 60px;
   position:relative;
   z-index:1;
-  padding:48px 0 70px;
 }
 
 .hero {
   text-align:center;
-  padding:25px 12px 38px;
+  padding:20px 10px 35px;
 }
 
 .badge {
   display:inline-flex;
   align-items:center;
-  gap:8px;
+  gap:7px;
+  padding:7px 14px;
   border:1px solid #ff2a2a55;
-  color:#ff6666;
-  background:#ff2a2a18;
   border-radius:30px;
-  padding:8px 15px;
+  background:#ff2a2a18;
+  color:#ff7777;
   font-size:12px;
   font-weight:800;
   margin-bottom:20px;
 }
 
 h1 {
-  font-size:clamp(32px,6vw,54px);
-  letter-spacing:-1.8px;
-  line-height:1.08;
-  margin-bottom:13px;
+  font-size:clamp(32px,6vw,52px);
+  letter-spacing:-1.5px;
+  margin-bottom:12px;
 }
 
 h1 em {
@@ -144,11 +140,11 @@ h1 em {
 }
 
 .hero p {
-  color:var(--muted);
-  font-size:16px;
-  line-height:1.7;
   max-width:620px;
   margin:auto;
+  color:var(--muted);
+  font-size:15px;
+  line-height:1.7;
 }
 
 /* ESTATÍSTICAS */
@@ -157,51 +153,49 @@ h1 em {
   display:grid;
   grid-template-columns:repeat(3,1fr);
   gap:14px;
-  margin:0 auto 28px;
+  margin-bottom:25px;
 }
 
 .stat {
-  background:linear-gradient(145deg,#17171f,#101015);
-  border:1px solid var(--border);
-  border-radius:18px;
-  padding:22px 15px;
+  padding:21px 12px;
   text-align:center;
+  background:linear-gradient(145deg,#191921,#101015);
+  border:1px solid var(--border);
+  border-radius:17px;
 }
 
 .stat strong {
   display:block;
-  font-size:clamp(24px,4vw,34px);
+  font-size:30px;
   margin-bottom:5px;
 }
 
 .stat span {
   color:var(--muted);
-  font-size:12px;
+  font-size:11px;
 }
 
 .stat .stars {
   color:var(--gold);
+  margin-top:5px;
   letter-spacing:2px;
-  font-size:14px;
-  margin-top:4px;
 }
 
 /* PAINÉIS */
 
 .layout {
   display:grid;
-  grid-template-columns:minmax(0,1fr) minmax(300px,.85fr);
+  grid-template-columns:1fr 1fr;
   gap:20px;
   align-items:start;
 }
 
 .panel {
-  background:linear-gradient(145deg,rgba(24,24,33,.97),rgba(15,15,21,.97));
+  background:linear-gradient(145deg,#17171f,#101015);
   border:1px solid var(--border);
-  border-radius:20px;
-  padding:24px;
-  box-shadow:0 18px 55px #0003;
-  position:relative;
+  border-radius:19px;
+  padding:23px;
+  box-shadow:0 15px 45px #0003;
 }
 
 .panel h2 {
@@ -216,219 +210,66 @@ h1 em {
   margin-bottom:22px;
 }
 
-/* FORMULÁRIO */
+/* CAMPOS */
 
 .field {margin-bottom:17px}
 
 .field label {
   display:block;
-  color:#e5e7eb;
   font-size:13px;
   font-weight:700;
   margin-bottom:8px;
+  color:#e5e7eb;
 }
 
-.field input,.field textarea {
+.field input,
+.field textarea,
+.field select {
   width:100%;
+  padding:14px;
   border:1px solid var(--border);
-  outline:none;
-  color:white;
-  background:#0b0b11;
   border-radius:12px;
-  padding:13px 14px;
+  background:#0b0b11;
+  color:white;
+  outline:none;
   transition:.2s;
 }
 
-.field input:focus,.field textarea:focus {
+.field input:focus,
+.field textarea:focus,
+.field select:focus {
   border-color:#ff2a2a99;
   box-shadow:0 0 0 3px #ff2a2a15;
 }
 
-.field textarea {
-  min-height:115px;
-  resize:vertical;
-  line-height:1.5;
-}
-
 .field input::placeholder,
 .field textarea::placeholder {
-  color:#626775;
+  color:#666b78;
 }
 
-/* ESCONDER SELECT ORIGINAL */
-
-.native-select-hidden {
-  display:none!important;
+.field textarea {
+  min-height:120px;
+  resize:vertical;
+  line-height:1.6;
 }
 
-/* DROPDOWNS */
+.field select {
+  appearance:none;
+  -webkit-appearance:none;
+  padding-right:40px;
+  cursor:pointer;
 
-.custom-select {
-  position:relative;
-  width:100%;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='%23ff4545' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;
+  background-position:right 14px center;
 }
 
-.custom-select.open {
-  z-index:102;
-}
-
-.custom-select-trigger {
-  width:100%;
-  min-height:52px;
-  padding:13px 16px;
-  border:1px solid #ffffff15;
-  border-radius:14px;
-
-  background:
-    radial-gradient(ellipse at right top,#ff2a2a12,transparent 65%),
-    linear-gradient(135deg,#19141b,#101017);
-
-  color:#f8fafc;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:12px;
-  text-align:left;
-  font-weight:600;
-  transition:.25s;
-  box-shadow:inset 0 1px 0 #ffffff08,0 5px 18px #0003;
-}
-
-.custom-select-trigger:hover,
-.custom-select.open .custom-select-trigger {
-  border-color:#ff2a2a99;
-  box-shadow:0 0 0 3px #ff2a2a16,0 8px 25px #0005;
-}
-
-.custom-select-arrow {
-  color:#ff4545;
-  transition:transform .25s;
-  flex-shrink:0;
-}
-
-.custom-select.open .custom-select-arrow {
-  transform:rotate(180deg);
-}
-
-.custom-select-menu {
-  position:absolute;
-  top:calc(100% + 9px);
-  left:0;
-  right:0;
-  z-index:103;
-
-  padding:7px;
-  border:1px solid #ff2a2a55;
-  border-radius:16px;
-
-  background:
-    radial-gradient(ellipse at top right,#ff2a2a24,transparent 55%),
-    linear-gradient(145deg,#211820,#101015);
-
-  box-shadow:
-    0 20px 60px #000d,
-    0 0 25px #ff202022;
-
-  opacity:0;
-  visibility:hidden;
-  pointer-events:none;
-
-  transform:translateY(-8px) scale(.98);
-  transform-origin:top;
-  transition:opacity .2s ease,transform .2s ease,visibility .2s;
-
-  max-height:260px;
-  overflow-y:auto;
-  overscroll-behavior:contain;
-}
-
-.custom-select.open .custom-select-menu {
-  opacity:1;
-  visibility:visible;
-  pointer-events:auto;
-  transform:translateY(0) scale(1);
-}
-
-.custom-select-option {
-  width:100%;
-  min-height:45px;
-  padding:12px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:10px;
-
-  color:#d1d5db;
-  background:transparent;
-  border:1px solid transparent;
-  border-radius:10px;
-  text-align:left;
-  font-size:14px;
-  transition:.18s;
-}
-
-.custom-select-option:hover {
+.field select option {
+  background:#17171f;
   color:white;
-  background:#ff2a2a16;
-  border-color:#ff2a2a30;
 }
 
-.custom-select-option.selected {
-  color:white;
-  background:linear-gradient(100deg,#ff2a2a25,#ff2a2a08);
-  border-color:#ff2a2a45;
-}
-
-.custom-select-option .check {
-  color:#ff4444;
-  font-weight:900;
-  opacity:0;
-}
-
-.custom-select-option.selected .check {
-  opacity:1;
-}
-
-.custom-select-menu::-webkit-scrollbar {
-  width:5px;
-}
-
-.custom-select-menu::-webkit-scrollbar-thumb {
-  background:#ff2a2a88;
-  border-radius:20px;
-}
-
-/* BACKDROP DOS DROPDOWNS */
-
-.dropdown-backdrop {
-  position:fixed;
-  inset:0;
-  z-index:100;
-
-  background:
-    radial-gradient(ellipse at center,#8f10183b,transparent 65%),
-    rgba(0,0,0,.76);
-
-  backdrop-filter:blur(9px) saturate(130%);
-  -webkit-backdrop-filter:blur(9px) saturate(130%);
-
-  opacity:0;
-  visibility:hidden;
-  pointer-events:none;
-  transition:opacity .22s ease,visibility .22s ease;
-}
-
-.dropdown-backdrop.active {
-  opacity:1;
-  visibility:visible;
-  pointer-events:auto;
-}
-
-body.dropdown-open {
-  overflow:hidden;
-}
-
-/* NOTAS */
+/* ESTRELAS */
 
 .rating-picker {
   display:flex;
@@ -440,14 +281,15 @@ body.dropdown-open {
 .star-btn {
   border:0;
   background:transparent;
-  color:#51515c;
-  font-size:32px;
+  color:#50505b;
+  font-size:34px;
   padding:0 2px;
   line-height:1;
-  transition:.15s;
+  transition:.2s;
 }
 
-.star-btn.active,.star-btn:hover {
+.star-btn.active,
+.star-btn:hover {
   color:var(--gold);
   transform:scale(1.12);
 }
@@ -458,27 +300,27 @@ body.dropdown-open {
   margin-left:5px;
 }
 
-/* BOTÕES */
+/* BOTÃO */
 
 .btn {
   width:100%;
-  border:0;
-  border-radius:13px;
-  padding:15px 18px;
+  padding:15px;
   display:flex;
   justify-content:center;
   align-items:center;
   gap:9px;
+  border:0;
+  border-radius:13px;
   color:white;
   font-weight:800;
-  background:linear-gradient(135deg,var(--red),#c90000);
-  box-shadow:0 9px 25px #ff2a2a35;
-  transition:.2s;
+  background:linear-gradient(135deg,#ff2a2a,#c90000);
+  box-shadow:0 8px 24px #ff2a2a35;
+  transition:.25s;
 }
 
 .btn:hover {
   transform:translateY(-2px);
-  box-shadow:0 13px 32px #ff2a2a50;
+  box-shadow:0 12px 30px #ff2a2a50;
 }
 
 .btn:active {transform:scale(.97)}
@@ -489,48 +331,57 @@ body.dropdown-open {
   transform:none;
 }
 
-/* AVISOS */
+/* MENSAGENS */
 
 .notice {
   display:none;
-  padding:12px 14px;
-  margin-bottom:16px;
-  border-radius:12px;
+  padding:13px;
+  border-radius:11px;
   font-size:13px;
   line-height:1.5;
+  margin-bottom:15px;
 }
 
 .notice.show {display:block}
 
 .notice.success {
-  color:#a7f3d0;
   background:#064e3b55;
   border:1px solid #10b98155;
+  color:#a7f3d0;
 }
 
 .notice.error {
-  color:#fecaca;
   background:#7f1d1d55;
   border:1px solid #ef444455;
-}
-
-.notice.info {
-  color:#bfdbfe;
-  background:#1e3a8a44;
-  border:1px solid #3b82f655;
+  color:#fecaca;
 }
 
 /* AVALIAÇÕES */
 
 .reviews-head {
   display:flex;
-  align-items:center;
   justify-content:space-between;
+  align-items:center;
   gap:12px;
-  margin-bottom:17px;
+  margin-bottom:18px;
+  flex-wrap:wrap;
 }
 
 .reviews-head h2 {margin:0}
+
+.reviews-head select {
+  max-width:170px;
+  padding:11px 30px 11px 12px;
+  border:1px solid var(--border);
+  border-radius:10px;
+  color:white;
+  background-color:#0b0b11;
+  outline:none;
+}
+
+.reviews-head select option {
+  background:#17171f;
+}
 
 .review-list {
   display:flex;
@@ -539,29 +390,29 @@ body.dropdown-open {
 }
 
 .review {
+  padding:16px;
   border:1px solid var(--border);
   background:#0d0d13;
-  border-radius:15px;
-  padding:16px;
-  animation:reviewIn .3s ease both;
+  border-radius:14px;
+  animation:appear .3s ease;
 }
 
-@keyframes reviewIn {
+@keyframes appear {
   from {opacity:0;transform:translateY(8px)}
   to {opacity:1;transform:translateY(0)}
 }
 
 .review-top {
   display:flex;
-  align-items:flex-start;
   justify-content:space-between;
+  align-items:flex-start;
   gap:10px;
   margin-bottom:10px;
 }
 
 .review-name {
-  font-weight:800;
   font-size:14px;
+  font-weight:800;
   overflow-wrap:anywhere;
 }
 
@@ -574,17 +425,17 @@ body.dropdown-open {
 .review-stars {
   color:var(--gold);
   letter-spacing:1px;
-  white-space:nowrap;
   font-size:14px;
+  white-space:nowrap;
 }
 
 .review-category {
   display:inline-block;
+  padding:4px 9px;
   color:#ff7777;
   background:#ff2a2a16;
   border:1px solid #ff2a2a30;
   border-radius:20px;
-  padding:4px 9px;
   font-size:10px;
   font-weight:800;
   margin-bottom:9px;
@@ -600,23 +451,23 @@ body.dropdown-open {
 .review-message {
   color:#c2c5ce;
   font-size:13px;
-  line-height:1.65;
+  line-height:1.7;
   white-space:pre-wrap;
   overflow-wrap:anywhere;
 }
 
 .empty {
   text-align:center;
-  padding:34px 15px;
+  padding:35px 15px;
   color:var(--muted);
   border:1px dashed #ffffff20;
-  border-radius:15px;
+  border-radius:14px;
 }
 
 .empty i {
   display:block;
   margin:0 auto 12px;
-  color:#666;
+  color:#777;
 }
 
 .empty strong {
@@ -626,86 +477,41 @@ body.dropdown-open {
 }
 
 .loading {
-  text-align:center;
   padding:25px;
-  color:var(--muted);
-  font-size:13px;
-}
-
-/* RODAPÉ */
-
-.footer {
   text-align:center;
-  color:#555b67;
-  font-size:12px;
-  padding:30px 15px 10px;
-  line-height:1.7;
+  color:var(--muted);
 }
 
-.footer b {color:#a1a1aa}
-
-/* BACKDROP DO MENU */
+/* MENU */
 
 .overlay {
   position:fixed;
   inset:0;
-  z-index:109;
-
-  background:
-    radial-gradient(ellipse at 78% 45%,#8f10183d 0%,transparent 48%),
-    rgba(2,2,6,.78);
-
-  backdrop-filter:blur(0px) saturate(100%);
-  -webkit-backdrop-filter:blur(0px) saturate(100%);
-
+  z-index:98;
+  background:rgba(0,0,0,.65);
   opacity:0;
   visibility:hidden;
-  transition:.32s ease;
+  transition:.3s;
 }
 
 .overlay.active {
   opacity:1;
   visibility:visible;
-  backdrop-filter:blur(9px) saturate(125%);
-  -webkit-backdrop-filter:blur(9px) saturate(125%);
 }
-
-/* MENU LATERAL */
 
 .side-menu {
   position:fixed;
-  z-index:110;
+  z-index:99;
   top:0;
-  right:-330px;
-  width:min(310px,88vw);
+  right:-320px;
+  width:min(300px,85vw);
   height:100%;
-
-  background:
-    radial-gradient(ellipse at 100% 0%,#ff2a2a20 0%,transparent 42%),
-    linear-gradient(160deg,#19151b 0%,#111117 48%,#0b0b10 100%);
-
-  border-left:1px solid #ff2a2a35;
   display:flex;
   flex-direction:column;
-  transition:right .38s cubic-bezier(.22,.8,.25,1);
-  box-shadow:-24px 0 75px #000b;
-  overflow:hidden;
-  isolation:isolate;
-}
-
-.side-menu::before {
-  content:"";
-  position:absolute;
-  z-index:-1;
-  width:230px;
-  height:230px;
-  top:-115px;
-  right:-100px;
-  border-radius:50%;
-  background:#ff2020;
-  filter:blur(95px);
-  opacity:.17;
-  pointer-events:none;
+  background:#121218;
+  border-left:1px solid var(--border);
+  box-shadow:-20px 0 60px #0009;
+  transition:right .35s cubic-bezier(.4,0,.2,1);
 }
 
 .side-menu.active {right:0}
@@ -715,92 +521,91 @@ body.dropdown-open {
   align-items:center;
   justify-content:space-between;
   padding:22px 20px;
-  border-bottom:1px solid #ffffff12;
-  background:#ffffff04;
+  border-bottom:1px solid var(--border);
 }
 
 .menu-body {
   flex:1;
-  padding:18px 12px;
+  padding:17px 12px;
 }
 
 .menu-label {
-  color:#737987;
-  font-size:10px;
-  font-weight:900;
+  color:#707784;
+  font-size:11px;
+  font-weight:800;
   letter-spacing:1px;
   text-transform:uppercase;
-  padding:10px;
+  padding:12px;
 }
 
 .menu-item {
   display:flex;
   align-items:center;
   gap:13px;
-  padding:13px 12px;
+  padding:14px 12px;
   border-radius:11px;
   color:#d1d5db;
   font-size:14px;
   transition:.2s;
-  border:1px solid transparent;
 }
 
 .menu-item:hover {
+  background:#ff2a2a13;
   color:white;
-  background:linear-gradient(100deg,#ff2a2a20,#ff2a2a05);
-  border-color:#ff2a2a28;
   transform:translateX(4px);
 }
 
-.menu-item:active {
-  transform:translateX(4px) scale(.98);
-  background:#ff2a2a25;
-}
-
 .menu-item i {
-  width:19px;
+  width:20px;
   color:var(--red);
 }
 
 .menu-footer {
+  padding:20px;
   border-top:1px solid var(--border);
   text-align:center;
-  padding:18px;
-  color:#555b67;
   font-size:11px;
+  color:#555b67;
 }
 
-/* RESPONSIVIDADE */
+/* RODAPÉ */
+
+.footer {
+  text-align:center;
+  padding:30px 10px 10px;
+  color:#555b67;
+  font-size:12px;
+  line-height:1.7;
+}
+
+.footer b {color:#a1a1aa}
+
+/* RESPONSIVO */
 
 @media(max-width:800px) {
   .layout {grid-template-columns:1fr}
 }
 
 @media(max-width:520px) {
-  header {
-    height:70px;
-    padding:0 4%;
-  }
+  header {padding:17px 18px}
 
-  main {
-    width:92%;
-    padding-top:28px;
-  }
+  main {padding-top:28px}
 
-  .hero {padding:16px 2px 28px}
+  .hero {padding:15px 2px 28px}
 
   .stats {gap:8px}
 
   .stat {
     padding:17px 7px;
-    border-radius:14px;
+    border-radius:13px;
   }
 
-  .stat span {font-size:10px}
+  .stat strong {font-size:24px}
+  .stat span {font-size:9px}
 
   .panel {
     padding:19px 15px;
-    border-radius:17px;
+    border-radius:16px;
   }
 
   .reviews-head {
@@ -808,7 +613,10 @@ body.dropdown-open {
     flex-direction:column;
   }
 
-  .reviews-head .custom-select {width:100%}
+  .reviews-head select {
+    width:100%;
+    max-width:none;
+  }
 }
 </style>
 </head>
@@ -883,8 +691,12 @@ body.dropdown-open {
 
     <div class="field">
       <label for="nickname">Seu nome ou apelido</label>
-      <input id="nickname" maxlength="40"
-        placeholder="Como podemos chamar você?" required>
+      <input
+        id="nickname"
+        maxlength="40"
+        placeholder="Como podemos chamar você?"
+        required
+      >
     </div>
 
     <div class="field">
@@ -893,11 +705,11 @@ body.dropdown-open {
 
       <div class="rating-picker">
 
-        <button class="star-btn" type="button" data-rating="1" aria-label="1 estrela">★</button>
-        <button class="star-btn" type="button" data-rating="2" aria-label="2 estrelas">★</button>
-        <button class="star-btn" type="button" data-rating="3" aria-label="3 estrelas">★</button>
-        <button class="star-btn" type="button" data-rating="4" aria-label="4 estrelas">★</button>
-        <button class="star-btn" type="button" data-rating="5" aria-label="5 estrelas">★</button>
+        <button type="button" class="star-btn" data-rating="1" aria-label="1 estrela">★</button>
+        <button type="button" class="star-btn" data-rating="2" aria-label="2 estrelas">★</button>
+        <button type="button" class="star-btn" data-rating="3" aria-label="3 estrelas">★</button>
+        <button type="button" class="star-btn" data-rating="4" aria-label="4 estrelas">★</button>
+        <button type="button" class="star-btn" data-rating="5" aria-label="5 estrelas">★</button>
 
         <span class="rating-hint" id="ratingHint">
           Selecione de 1 a 5
@@ -909,9 +721,9 @@ body.dropdown-open {
 
     <div class="field">
 
-      <label>O que você deseja avaliar?</label>
+      <label for="category">O que você deseja avaliar?</label>
 
-      <select id="category">
+      <select id="category" required>
         <option value="Experiência geral">Experiência geral</option>
         <option value="Site">Site</option>
         <option value="Aplicativo">Aplicativo</option>
@@ -925,15 +737,22 @@ body.dropdown-open {
 
     <div class="field">
       <label for="reviewTitle">Título da avaliação</label>
-      <input id="reviewTitle" maxlength="70"
-        placeholder="Resuma sua experiência" required>
+      <input
+        id="reviewTitle"
+        maxlength="70"
+        placeholder="Resuma sua experiência"
+        required
+      >
     </div>
 
     <div class="field">
       <label for="message">Seu comentário</label>
-      <textarea id="message" maxlength="1000"
+      <textarea
+        id="message"
+        maxlength="1000"
         placeholder="Conte o que você gostou ou o que podemos melhorar..."
-        required></textarea>
+        required
+      ></textarea>
     </div>
 
     <button class="btn" id="submitBtn" type="submit">
@@ -951,13 +770,12 @@ body.dropdown-open {
 
     <div>
       <h2>O que estão dizendo</h2>
-
       <p class="panel-sub" style="margin:5px 0 0">
         Opiniões compartilhadas pela comunidade.
       </p>
     </div>
 
-    <select id="sortReviews">
+    <select id="sortReviews" aria-label="Ordenar avaliações">
       <option value="newest">Mais recentes</option>
       <option value="highest">Melhores notas</option>
       <option value="lowest">Menores notas</option>
@@ -981,11 +799,9 @@ body.dropdown-open {
 
 </main>
 
-<!-- BACKDROP DO MENU -->
+<!-- MENU LATERAL -->
 
 <div class="overlay" id="overlay"></div>
-
-<!-- MENU LATERAL -->
 
 <aside class="side-menu" id="sideMenu">
 
@@ -1015,9 +831,7 @@ body.dropdown-open {
       Baixar aplicativo
     </a>
 
-    <div class="menu-label" style="margin-top:12px">
-      Comunidade
-    </div>
+    <div class="menu-label">Comunidade</div>
 
     <a class="menu-item"
        href="https://discord.gg/6TaQ3j6YNR"
@@ -1037,7 +851,7 @@ body.dropdown-open {
 <script>
 
 /* =====================================
-   CONFIGURAÇÃO SUPABASE
+   SUPABASE - CONFIGURAÇÃO
 ===================================== */
 
 const SUPABASE_URL =
@@ -1058,23 +872,23 @@ let allReviews = [];
 let loadingReviews = false;
 
 /* =====================================
-   AVISOS
+   MENSAGENS
 ===================================== */
 
-function showNotice(message,type="info") {
-  const el = $("formNotice");
+function showNotice(message,type="success") {
+  const notice = $("formNotice");
 
-  el.textContent = message;
-  el.className = "notice show " + type;
+  notice.textContent = message;
+  notice.className = "notice show " + type;
 }
 
 function clearNotice() {
-  $("formNotice").className = "notice";
   $("formNotice").textContent = "";
+  $("formNotice").className = "notice";
 }
 
 /* =====================================
-   NOTAS
+   SISTEMA DE ESTRELAS
 ===================================== */
 
 function setRating(value) {
@@ -1090,7 +904,7 @@ function setRating(value) {
 
     button.setAttribute(
       "aria-pressed",
-      String(Number(button.dataset.rating) === value)
+      String(active)
     );
 
   });
@@ -1109,7 +923,7 @@ document.querySelectorAll(".star-btn").forEach(button => {
 });
 
 /* =====================================
-   DATAS
+   FORMATAR DATA
 ===================================== */
 
 function formatDate(value) {
@@ -1135,12 +949,16 @@ function renderStats(reviews) {
   const count = reviews.length;
 
   const average = count
-    ? reviews.reduce((sum,item) => sum + Number(item.rating),0) / count
+    ? reviews.reduce(
+        (sum,item) => sum + Number(item.rating),0
+      ) / count
     : 0;
 
   const positive = count
     ? Math.round(
-        reviews.filter(item => Number(item.rating) >= 4).length / count * 100
+        reviews.filter(
+          item => Number(item.rating) >= 4
+        ).length / count * 100
       )
     : 0;
 
@@ -1156,39 +974,39 @@ function renderStats(reviews) {
 
   $("averageStars").textContent = count
     ? "★".repeat(Math.round(average)) +
-      "☆".repeat(5 - Math.round(average))
+      "☆".repeat(5-Math.round(average))
     : "☆☆☆☆☆";
 
 }
 
 /* =====================================
-   EXIBIR AVALIAÇÕES
+   MOSTRAR AVALIAÇÕES
 ===================================== */
 
 function renderReviews() {
 
   const sort = $("sortReviews").value;
+
   const reviews = [...allReviews];
 
   if (sort === "highest") {
 
     reviews.sort((a,b) =>
-      Number(b.rating) - Number(a.rating) ||
-      new Date(b.created_at) - new Date(a.created_at)
+      Number(b.rating)-Number(a.rating) ||
+      new Date(b.created_at)-new Date(a.created_at)
     );
 
   } else if (sort === "lowest") {
 
     reviews.sort((a,b) =>
-      Number(a.rating) - Number(b.rating) ||
-      new Date(b.created_at) - new Date(a.created_at)
+      Number(a.rating)-Number(b.rating) ||
+      new Date(b.created_at)-new Date(a.created_at)
     );
 
   } else {
 
-    reviews.sort(
-      (a,b) =>
-        new Date(b.created_at) - new Date(a.created_at)
+    reviews.sort((a,b) =>
+      new Date(b.created_at)-new Date(a.created_at)
     );
 
   }
@@ -1207,11 +1025,11 @@ function renderReviews() {
     const title = document.createElement("strong");
     title.textContent = "Ainda não há avaliações";
 
-    const desc = document.createElement("span");
-    desc.textContent =
+    const description = document.createElement("span");
+    description.textContent =
       "Seja a primeira pessoa a avaliar o KiraFlix!";
 
-    empty.append(icon,title,desc);
+    empty.append(icon,title,description);
     list.append(empty);
 
     lucide.createIcons();
@@ -1266,7 +1084,6 @@ function renderReviews() {
     message.textContent = review.message;
 
     card.append(top,category,title,message);
-
     list.append(card);
 
   });
@@ -1274,7 +1091,7 @@ function renderReviews() {
 }
 
 /* =====================================
-   BUSCAR AVALIAÇÕES
+   CARREGAR AVALIAÇÕES DO SUPABASE
 ===================================== */
 
 async function loadReviews() {
@@ -1305,7 +1122,7 @@ async function loadReviews() {
     if (!allReviews.length) {
 
       $("reviewList").textContent =
-        "Não foi possível carregar as avaliações. Verifique a tabela e as políticas RLS do Supabase.";
+        "Não foi possível carregar as avaliações. Verifique a conexão e as permissões do Supabase.";
 
     }
 
@@ -1357,16 +1174,10 @@ $("reviewForm").addEventListener("submit",async event => {
 
   }
 
-  if (
-    nickname.length > 40 ||
-    title.length > 70 ||
-    message.length > 1000
-  ) return;
-
   const button = $("submitBtn");
 
   button.disabled = true;
-  button.innerHTML = "Publicando...";
+  button.textContent = "Publicando...";
 
   try {
 
@@ -1395,10 +1206,10 @@ $("reviewForm").addEventListener("submit",async event => {
 
   } catch(error) {
 
-    console.error("Erro ao publicar:",error);
+    console.error("Erro ao publicar avaliação:",error);
 
     showNotice(
-      "Não foi possível publicar. Verifique as políticas RLS e a conexão com o Supabase.",
+      "Não foi possível publicar. Verifique as permissões da tabela no Supabase.",
       "error"
     );
 
@@ -1416,180 +1227,8 @@ $("reviewForm").addEventListener("submit",async event => {
 });
 
 /* =====================================
-   DROPDOWNS PERSONALIZADOS
+   ORDENAR AVALIAÇÕES
 ===================================== */
-
-const dropdownBackdrop = document.createElement("div");
-
-dropdownBackdrop.className = "dropdown-backdrop";
-dropdownBackdrop.setAttribute("aria-hidden","true");
-
-document.body.appendChild(dropdownBackdrop);
-
-function closeCustomDropdowns() {
-
-  document.querySelectorAll(".custom-select.open")
-    .forEach(dropdown => {
-
-      dropdown.classList.remove("open");
-
-      const trigger =
-        dropdown.querySelector(".custom-select-trigger");
-
-      if (trigger) {
-        trigger.setAttribute("aria-expanded","false");
-      }
-
-    });
-
-  dropdownBackdrop.classList.remove("active");
-  document.body.classList.remove("dropdown-open");
-
-}
-
-function createCustomDropdown(selectId) {
-
-  const original = $(selectId);
-
-  if (!original || original.dataset.customized) return;
-
-  original.dataset.customized = "true";
-  original.classList.add("native-select-hidden");
-
-  const wrapper = document.createElement("div");
-  wrapper.className = "custom-select";
-
-  const trigger = document.createElement("button");
-
-  trigger.type = "button";
-  trigger.className = "custom-select-trigger";
-  trigger.setAttribute("aria-haspopup","listbox");
-  trigger.setAttribute("aria-expanded","false");
-
-  const label = document.createElement("span");
-  const arrow = document.createElement("span");
-
-  arrow.className = "custom-select-arrow";
-  arrow.innerHTML =
-    '<i data-lucide="chevron-down"></i>';
-
-  trigger.append(label,arrow);
-
-  const menu = document.createElement("div");
-
-  menu.className = "custom-select-menu";
-  menu.setAttribute("role","listbox");
-
-  function updateSelection() {
-
-    const selected =
-      original.options[original.selectedIndex];
-
-    label.textContent = selected
-      ? selected.textContent
-      : "Selecione uma opção";
-
-    menu.querySelectorAll(".custom-select-option")
-      .forEach((button,index) => {
-
-        const active =
-          original.options[index].value === original.value;
-
-        button.classList.toggle("selected",active);
-
-        button.setAttribute(
-          "aria-selected",
-          String(active)
-        );
-
-      });
-
-  }
-
-  Array.from(original.options).forEach(option => {
-
-    const item = document.createElement("button");
-
-    item.type = "button";
-    item.className = "custom-select-option";
-    item.setAttribute("role","option");
-
-    const text = document.createElement("span");
-    text.textContent = option.textContent;
-
-    const check = document.createElement("span");
-    check.className = "check";
-    check.textContent = "✓";
-
-    item.append(text,check);
-
-    item.addEventListener("click",event => {
-
-      event.stopPropagation();
-
-      original.value = option.value;
-
-      original.dispatchEvent(
-        new Event("change",{bubbles:true})
-      );
-
-      updateSelection();
-      closeCustomDropdowns();
-
-    });
-
-    menu.appendChild(item);
-
-  });
-
-  trigger.addEventListener("click",event => {
-
-    event.stopPropagation();
-
-    const wasOpen =
-      wrapper.classList.contains("open");
-
-    closeCustomDropdowns();
-
-    if (!wasOpen) {
-
-      wrapper.classList.add("open");
-
-      trigger.setAttribute(
-        "aria-expanded","true"
-      );
-
-      dropdownBackdrop.classList.add("active");
-
-      document.body.classList.add("dropdown-open");
-
-    }
-
-  });
-
-  original.addEventListener("change",updateSelection);
-
-  wrapper.append(trigger,menu);
-
-  original.parentNode.insertBefore(wrapper,original);
-
-  updateSelection();
-
-}
-
-/* Inicializa os dois dropdowns */
-
-createCustomDropdown("category");
-createCustomDropdown("sortReviews");
-
-/* Fechar ao tocar fora */
-
-dropdownBackdrop.addEventListener(
-  "click",
-  closeCustomDropdowns
-);
-
-/* Atualizar ordenação */
 
 $("sortReviews").addEventListener("change",() => {
   renderReviews();
@@ -1615,7 +1254,6 @@ function toggleMenu(force) {
 }
 
 $("openMenu").addEventListener("click",() => {
-  closeCustomDropdowns();
   toggleMenu(true);
 });
 
@@ -1627,17 +1265,10 @@ $("overlay").addEventListener("click",() => {
   toggleMenu(false);
 });
 
-/* =====================================
-   TECLADO
-===================================== */
-
 document.addEventListener("keydown",event => {
 
   if (event.key === "Escape") {
-
-    closeCustomDropdowns();
     toggleMenu(false);
-
   }
 
 });
@@ -1650,7 +1281,7 @@ lucide.createIcons();
 
 loadReviews();
 
-/* Atualizar avaliações a cada 30 segundos */
+/* Atualização automática */
 
 setInterval(() => {
   loadReviews();
