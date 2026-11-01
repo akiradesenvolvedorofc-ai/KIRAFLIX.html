@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#08080c">
+  <meta name="description" content="Avalie o KiraFlix. Compartilhe sua experiência com filmes, séries, animes e players.">
+  <title>KiraFlix — Central de Avaliações</title>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <style>
+    :root {
+      --bg:#08080c; --surface:#121218; --surface2:#191922;
+      --red:#ff2a2a; --red2:#d40000; --text:#fff;
+      --muted:#9ca3af; --border:rgba(255,255,255,.08);
+      --gold:#ffc857; --green:#35d07f;
+    }
+    * { margin:0; padding:0; box-sizing:border-box; font-family:'Segoe UI',system-ui,-apple-system,sans-serif; -webkit-tap-highlight-color:transparent; }
+    body { min-height:100vh; background:var(--bg); color:var(--text); overflow-x:hidden; }
+    button,input,textarea,select { font:inherit; }
+    button { cursor:pointer; }
+    a { color:inherit; text-decoration:none; }
+    .bg-glow { position:fixed; width:520px; height:520px; left:50%; top:35%; transform:translate(-50%,-50%); background:var(--red); filter:blur(170px); opacity:.09; pointer-events:none; z-index:0; }
+    header { height:82px; display:flex; align-items:center; justify-content:space-between; padding:0 5%; position:relative; z-index:10; border-bottom:1px solid var(--border); background:rgba(8,8,12,.72); backdrop-filter:blur(16px); }
+    .logo { color:var(--red); font-size:25px; font-weight:950; letter-spacing:-1px; text-shadow:0 0 22px #ff2a2a55; }
+    .logo span { color:white; }
+    .menu-btn,.close-btn { width:44px; height:44px; display:grid; place-items:center; border:1px solid var(--border); border-radius:13px; color:white; background:var(--surface); transition:.2s; }
+    .menu-btn:hover,.close-btn:hover { color:var(--red); border-color:var(--red); background:#ff2a2a12; }
+    main { width:min(1120px,92%); margin:auto; position:relative; z-index:1; padding:48px 0 70px; }
+    .hero { text-align:center; padding:25px 12px 38px; }
+    .badge { display:inline-flex; align-items:center; gap:8px; border:1px solid #ff2a2a55; color:#ff6666; background:#ff2a2a18; border-radius:30px; padding:8px 15px; font-size:12px; font-weight:800; letter-spacing:.5px; margin-bottom:20px; }
+    h1 { font-size:clamp(32px,6vw,54px); letter-spacing:-1.8px; line-height:1.08; margin-bottom:13px; }
+    h1 em { color:var(--red); font-style:normal; }
+    .hero p { color:var(--muted); font-size:16px; line-height:1.7; max-width:620px; margin:auto; }
+    .stats { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin:0 auto 28px; }
+    .stat { background:linear-gradient(145deg,#17171f,#101015); border:1px solid var(--border); border-radius:18px; padding:22px 15px; text-align:center; }
+    .stat strong { display:block; font-size:clamp(24px,4vw,34px); margin-bottom:5px; }
+    .stat span { color:var(--muted); font-size:12px; }
+    .stat .stars { color:var(--gold); letter-spacing:2px; font-size:14px; margin-top:4px; }
+    .layout { display:grid; grid-template-columns:minmax(0,1fr) minmax(300px,.85fr); gap:20px; align-items:start; }
+    .panel { background:linear-gradient(145deg,rgba(24,24,33,.97),rgba(15,15,21,.97)); border:1px solid var(--border); border-radius:20px; padding:24px; box-shadow:0 18px 55px #0003; }
+    .panel h2 { font-size:20px; margin-bottom:7px; letter-spacing:-.4px; }
+    .panel-sub { color:var(--muted); font-size:13px; line-height:1.6; margin-bottom:22px; }
+    .field { margin-bottom:17px; }
+    .field label { display:block; color:#e5e7eb; font-size:13px; font-weight:700; margin-bottom:8px; }
+    .field input,.field textarea,.field select { width:100%; border:1px solid var(--border); outline:none; color:white; background:#0b0b11; border-radius:12px; padding:13px 14px; transition:.2s; }
+    .field input:focus,.field textarea:focus,.field select:focus { border-color:#ff2a2a99; box-shadow:0 0 0 3px #ff2a2a15; }
+    .field textarea { min-height:115px; resize:vertical; line-height:1.5; }
+    .field input::placeholder,.field textarea::placeholder { color:#626775; }
+    .rating-picker { display:flex; align-items:center; gap:8px; flex-wrap:wrap; }
+    .star-btn { border:0; background:transparent; color:#51515c; font-size:32px; padding:0 2px; line-height:1; transition:.15s; }
+    .star-btn.active,.star-btn:hover { color:var(--gold); transform:scale(1.12); }
+    .rating-hint { color:var(--muted); font-size:12px; margin-left:5px; }
+    .btn { width:100%; border:0; border-radius:13px; padding:15px 18px; display:flex; justify-content:center; align-items:center; gap:9px; color:white; font-weight:800; background:linear-gradient(135deg,var(--red),#c90000); box-shadow:0 9px 25px #ff2a2a35; transition:.2s; }
+    .btn:hover { transform:translateY(-2px); box-shadow:0 13px 32px #ff2a2a50; }
+    .btn:disabled { opacity:.6; cursor:not-allowed; transform:none; }
+    .notice { display:none; padding:12px 14px; margin-bottom:16px; border-radius:12px; font-size:13px; line-height:1.5; }
+    .notice.show { display:block; }
+    .notice.success { color:#a7f3d0; background:#064e3b55; border:1px solid #10b98155; }
+    .notice.error { color:#fecaca; background:#7f1d1d55; border:1px solid #ef444455; }
+    .notice.info { color:#bfdbfe; background:#1e3a8a44; border:1px solid #3b82f655; }
+    .reviews-head { display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom:17px; }
+    .reviews-head h2 { margin:0; }
+    .reviews-head select { max-width:145px; border:1px solid var(--border); border-radius:10px; padding:9px; color:white; background:#0b0b11; outline:none; }
+    .review-list { display:flex; flex-direction:column; gap:12px; }
+    .review { border:1px solid var(--border); background:#0d0d13; border-radius:15px; padding:16px; }
+    .review-top { display:flex; align-items:flex-start; justify-content:space-between; gap:10px; margin-bottom:10px; }
+    .review-name { font-weight:800; font-size:14px; overflow-wrap:anywhere; }
+    .review-date { color:#737987; font-size:11px; margin-top:4px; }
+    .review-stars { color:var(--gold); letter-spacing:1px; white-space:nowrap; font-size:14px; }
+    .review-category { display:inline-block; color:#ff7777; background:#ff2a2a16; border:1px solid #ff2a2a30; border-radius:20px; padding:4px 9px; font-size:10px; font-weight:800; margin-bottom:9px; }
+    .review-title { font-size:15px; font-weight:800; margin-bottom:6px; overflow-wrap:anywhere; }
+    .review-message { color:#c2c5ce; font-size:13px; line-height:1.65; white-space:pre-wrap; overflow-wrap:anywhere; }
+    .empty { text-align:center; padding:34px 15px; color:var(--muted); border:1px dashed #ffffff20; border-radius:15px; }
+    .empty i { display:block; margin:0 auto 12px; color:#666; }
+    .empty strong { display:block; color:#ddd; margin-bottom:6px; }
+    .loading { text-align:center; padding:25px; color:var(--muted); font-size:13px; }
+    .footer { text-align:center; color:#555b67; font-size:12px; padding:30px 15px 10px; line-height:1.7; }
+    .footer b { color:#a1a1aa; }
+    .overlay { position:fixed; inset:0; background:#000a; backdrop-filter:blur(4px); opacity:0; visibility:hidden; transition:.3s; z-index:98; }
+    .overlay.active { opacity:1; visibility:visible; }
+    .side-menu { position:fixed; z-index:99; top:0; right:-330px; width:min(300px,86vw); height:100%; background:var(--surface); border-left:1px solid var(--border); display:flex; flex-direction:column; transition:right .35s cubic-bezier(.4,0,.2,1); box-shadow:-20px 0 60px #0009; }
+    .side-menu.active { right:0; }
+    .menu-header { display:flex; align-items:center; justify-content:space-between; padding:22px 20px; border-bottom:1px solid var(--border); }
+    .menu-body { flex:1; padding:18px 12px; }
+    .menu-label { color:#737987; font-size:10px; font-weight:900; letter-spacing:1px; text-transform:uppercase; padding:10px 10px; }
+    .menu-item { display:flex; align-items:center; gap:13px; padding:13px 12px; border-radius:11px; color:#d1d5db; font-size:14px; transition:.2s; }
+    .menu-item:hover { color:white; background:#ff2a2a14; transform:translateX(4px); }
+    .menu-item i { width:19px; color:var(--red); }
+    .menu-footer { border-top:1px solid var(--border); text-align:center; padding:18px; color:#555b67; font-size:11px; }
+    @media(max-width:800px) { .layout { grid-template-columns:1fr; } }
+    @media(max-width:520px) {
+      header { height:70px; padding:0 4%; }
+      main { width:92%; padding-top:28px; }
+      .hero { padding:16px 2px 28px; }
+      .stats { gap:8px; }
+      .stat { padding:17px 7px; border-radius:14px; }
+      .stat span { font-size:10px; }
+      .panel { padding:19px 15px; border-radius:17px; }
+      .reviews-head { align-items:flex-start; flex-direction:column; }
+      .reviews-head select { max-width:none; width:100%; }
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-glow"></div>
+
+  <header>
+    <a href="#" class="logo">Kira<span>Flix</span></a>
+    <button class="menu-btn" id="openMenu" aria-label="Abrir menu"><i data-lucide="menu"></i></button>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="badge"><i data-lucide="star" width="14"></i> CENTRAL OFICIAL DE AVALIAÇÕES</div>
+      <h1>Sua opinião faz o <em>KiraFlix</em> crescer.</h1>
+      <p>Conte como está sendo sua experiência! Avalie a plataforma, compartilhe sua opinião e ajude a melhorar o KiraFlix para toda a comunidade.</p>
+    </section>
+
+    <section class="stats" aria-label="Estatísticas das avaliações">
+      <div class="stat"><strong id="average">—</strong><span>MÉDIA GERAL</span><div class="stars" id="averageStars">☆☆☆☆☆</div></div>
+      <div class="stat"><strong id="total">—</strong><span>AVALIAÇÕES</span></div>
+      <div class="stat"><strong id="positive">—</strong><span>NOTAS 4 E 5</span></div>
+    </section>
+
+    <section class="layout">
+      <div class="panel">
+        <h2>Deixe sua avaliação</h2>
+        <p class="panel-sub">Sua opinião é importante. Preencha os campos abaixo para publicar sua avaliação.</p>
+        <div id="formNotice" class="notice" role="status"></div>
+        <form id="reviewForm">
+          <div class="field">
+            <label for="nickname">Seu nome ou apelido</label>
+            <input id="nickname" name="nickname" maxlength="40" placeholder="Como podemos chamar você?" required>
+          </div>
+          <div class="field">
+            <label>Sua nota para o KiraFlix</label>
+            <div class="rating-picker" id="ratingPicker" aria-label="Escolha uma nota de uma a cinco estrelas">
+              <button class="star-btn" type="button" data-rating="1" aria-label="1 estrela">★</button>
+              <button class="star-btn" type="button" data-rating="2" aria-label="2 estrelas">★</button>
+              <button class="star-btn" type="button" data-rating="3" aria-label="3 estrelas">★</button>
+              <button class="star-btn" type="button" data-rating="4" aria-label="4 estrelas">★</button>
+              <button class="star-btn" type="button" data-rating="5" aria-label="5 estrelas">★</button>
+              <span class="rating-hint" id="ratingHint">Selecione de 1 a 5</span>
+            </div>
+          </div>
+          <div class="field">
+            <label for="category">O que você deseja avaliar?</label>
+            <select id="category" required>
+              <option value="Experiência geral">Experiência geral</option>
+              <option value="Site">Site</option>
+              <option value="Aplicativo">Aplicativo</option>
+              <option value="Filmes e séries">Filmes e séries</option>
+              <option value="Animes">Animes</option>
+              <option value="Players">Players</option>
+              <option value="Velocidade e desempenho">Velocidade e desempenho</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="reviewTitle">Título da avaliação</label>
+            <input id="reviewTitle" maxlength="70" placeholder="Resuma sua experiência" required>
+          </div>
+          <div class="field">
+            <label for="message">Seu comentário</label>
+            <textarea id="message" maxlength="1000" placeholder="Conte o que você gostou ou o que podemos melhorar..." required></textarea>
+          </div>
+          <button class="btn" id="submitBtn" type="submit"><i data-lucide="send" width="18"></i> Publicar avaliação</button>
+        </form>
+      </div>
+
+      <div class="panel">
+        <div class="reviews-head">
+          <div><h2>O que estão dizendo</h2><p class="panel-sub" style="margin:5px 0 0">Opiniões compartilhadas pela comunidade.</p></div>
+          <select id="sortReviews" aria-label="Ordenar avaliações">
+            <option value="newest">Mais recentes</option>
+            <option value="highest">Melhores notas</option>
+            <option value="lowest">Menores notas</option>
+          </select>
+        </div>
+        <div id="reviewList" class="review-list">
+          <div class="loading"><i data-lucide="loader-circle"></i><br>Carregando avaliações...</div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <b>© 2026 KiraFlix.</b> Todos os direitos reservados.<br>
+      Este espaço reúne opiniões enviadas pelos visitantes. Os comentários representam a experiência de seus autores.
+    </footer>
+  </main>
+
+  <div class="overlay" id="overlay"></div>
+  <aside class="side-menu" id="sideMenu" aria-label="Menu lateral">
+    <div class="menu-header"><span class="logo" style="font-size:21px">Kira<span>Flix</span></span><button class="close-btn" id="closeMenu" aria-label="Fechar menu"><i data-lucide="x"></i></button></div>
+    <div class="menu-body">
+      <div class="menu-label">Navegação</div>
+      <a class="menu-item" href="https://kiraflix.qd.je/"><i data-lucide="globe"></i> Acessar KiraFlix</a>
+      <a class="menu-item" href="https://kiraflix.qd.je/Baixar"><i data-lucide="download"></i> Baixar aplicativo</a>
+      <div class="menu-label" style="margin-top:12px">Comunidade</div>
+      <a class="menu-item" href="https://discord.gg/6TaQ3j6YNR" target="_blank" rel="noopener noreferrer"><i data-lucide="message-circle"></i> Discord</a>
+    </div>
+    <div class="menu-footer">KiraFlix — Central de Avaliações</div>
+  </aside>
+
+  <script>
+    // ==========================================================
+    // CONFIGURAÇÃO DO SUPABASE
+    // Cole aqui a URL do projeto e a chave anon/publishable.
+    // NUNCA use a chave service_role neste arquivo.
+    // ==========================================================
+    const SUPABASE_URL = "https://ahtuhrzizlwcvrgbzivx.supabase.co";
+    const SUPABASE_ANON_KEY = "COLE_SUA_CHAVE_ANON_OU_PUBLISHABLE_AQUI";
+
+    const hasConfig = SUPABASE_URL.startsWith("https://") &&
+      SUPABASE_ANON_KEY.length > 20 &&
+      !SUPABASE_ANON_KEY.includes("COLE_SUA_CHAVE");
+
+    let db = null;
+    let selectedRating = 0;
+    let allReviews = [];
+
+    const $ = (id) => document.getElementById(id);
+
+    function showNotice(message, type = "info") {
+      const el = $("formNotice");
+      el.textContent = message;
+      el.className = "notice show " + type;
+    }
+
+    function clearNotice() {
+      $("formNotice").className = "notice";
+      $("formNotice").textContent = "";
+    }
+
+    function setRating(value) {
+      selectedRating = value;
+      document.querySelectorAll(".star-btn").forEach((button) => {
+        const active = Number(button.dataset.rating) <= value;
+        button.classList.toggle("active", active);
+        button.setAttribute("aria-pressed", String(Number(button.dataset.rating) === value));
+      });
+      $("ratingHint").textContent = value + (value === 1 ? " estrela" : " estrelas");
+    }
+
+    document.querySelectorAll(".star-btn").forEach((button) => {
+      button.addEventListener("click", () => setRating(Number(button.dataset.rating)));
+    });
+
+    function formatDate(value) {
+      return new Intl.DateTimeFormat("pt-BR", { dateStyle: "medium" }).format(new Date(value));
+    }
+
+    function renderStats(reviews) {
+      const count = reviews.length;
+      const average = count ? reviews.reduce((sum, item) => sum + item.rating, 0) / count : 0;
+      const positive = count ? Math.round((reviews.filter(item => item.rating >= 4).length / count) * 100) : 0;
+      $("average").textContent = count ? average.toFixed(1).replace(".", ",") : "—";
+      $("total").textContent = count.toLocaleString("pt-BR");
+      $("positive").textContent = count ? positive + "%" : "—";
+      $("averageStars").textContent = count ? "★".repeat(Math.round(average)) + "☆".repeat(5 - Math.round(average)) : "☆☆☆☆☆";
+    }
+
+    function renderReviews() {
+      const sort = $("sortReviews").value;
+      const reviews = [...allReviews];
+      if (sort === "highest") reviews.sort((a,b) => b.rating - a.rating || new Date(b.created_at) - new Date(a.created_at));
+      else if (sort === "lowest") reviews.sort((a,b) => a.rating - b.rating || new Date(b.created_at) - new Date(a.created_at));
+      else reviews.sort((a,b) => new Date(b.created_at) - new Date(a.created_at));
+
+      const list = $("reviewList");
+      list.replaceChildren();
+
+      if (!reviews.length) {
+        const empty = document.createElement("div");
+        empty.className = "empty";
+        const icon = document.createElement("i");
+        icon.setAttribute("data-lucide", "messages-square");
+        const title = document.createElement("strong");
+        title.textContent = "Ainda não há avaliações";
+        const desc = document.createElement("span");
+        desc.textContent = "Seja a primeira pessoa a avaliar o KiraFlix!";
+        empty.append(icon, title, desc);
+        list.append(empty);
+        lucide.createIcons();
+        return;
+      }
+
+      reviews.forEach((review) => {
+        const card = document.createElement("article");
+        card.className = "review";
+
+        const top = document.createElement("div");
+        top.className = "review-top";
+        const identity = document.createElement("div");
+        const name = document.createElement("div");
+        name.className = "review-name";
+        name.textContent = review.nickname;
+        const date = document.createElement("div");
+        date.className = "review-date";
+        date.textContent = formatDate(review.created_at);
+        identity.append(name, date);
+
+        const stars = document.createElement("div");
+        stars.className = "review-stars";
+        stars.textContent = "★".repeat(review.rating) + "☆".repeat(5 - review.rating);
+        top.append(identity, stars);
+
+        const category = document.createElement("span");
+        category.className = "review-category";
+        category.textContent = review.category;
+
+        const title = document.createElement("div");
+        title.className = "review-title";
+        title.textContent = review.title;
+
+        const message = document.createElement("p");
+        message.className = "review-message";
+        message.textContent = review.message;
+
+        card.append(top, category, title, message);
+        list.append(card);
+      });
+    }
+
+    async function loadReviews() {
+      if (!db) {
+        $("reviewList").innerHTML = '<div class="empty"><strong>Configuração pendente</strong><span>Adicione sua chave pública do Supabase no código para carregar as avaliações.</span></div>';
+        return;
+      }
+      const { data, error } = await db.from("kiraflix_reviews")
+        .select("id,nickname,rating,category,title,message,created_at")
+        .order("created_at", { ascending: false })
+        .limit(200);
+
+      if (error) {
+        $("reviewList").textContent = "Não foi possível carregar as avaliações. Confira a configuração e as políticas do Supabase.";
+        console.error("Erro ao carregar avaliações:", error);
+        return;
+      }
+      allReviews = data || [];
+      renderStats(allReviews);
+      renderReviews();
+    }
+
+    $("reviewForm").addEventListener("submit", async (event) => {
+      event.preventDefault();
+      clearNotice();
+
+      if (!db) {
+        showNotice("O Supabase ainda não foi configurado. Insira a chave anon/publishable no código.", "error");
+        return;
+      }
+      if (!selectedRating) {
+        showNotice("Escolha uma nota de 1 a 5 estrelas antes de publicar.", "error");
+        return;
+      }
+
+      const nickname = $("nickname").value.trim();
+      const title = $("reviewTitle").value.trim();
+      const message = $("message").value.trim();
+      const category = $("category").value;
+
+      if (nickname.length < 2 || title.length < 3 || message.length < 5) {
+        showNotice("Confira os campos: nome, título e comentário precisam ter um pouco mais de texto.", "error");
+        return;
+      }
+
+      const button = $("submitBtn");
+      button.disabled = true;
+      button.textContent = "Publicando...";
+
+      const { error } = await db.from("kiraflix_reviews").insert([{
+        nickname, rating: selectedRating, category, title, message
+      }]);
+
+      button.disabled = false;
+      button.innerHTML = '<i data-lucide="send" width="18"></i> Publicar avaliação';
+      lucide.createIcons();
+
+      if (error) {
+        console.error("Erro ao publicar avaliação:", error);
+        showNotice("Não foi possível publicar. Verifique se o SQL e as políticas RLS foram configurados corretamente.", "error");
+        return;
+      }
+
+      $("reviewForm").reset();
+      setRating(0);
+      showNotice("Sua avaliação foi publicada! Obrigado por ajudar o KiraFlix a crescer. ❤️", "success");
+      await loadReviews();
+    });
+
+    $("sortReviews").addEventListener("change", renderReviews);
+
+    function toggleMenu(force) {
+      const active = typeof force === "boolean" ? force : !$("sideMenu").classList.contains("active");
+      $("sideMenu").classList.toggle("active", active);
+      $("overlay").classList.toggle("active", active);
+    }
+    $("openMenu").addEventListener("click", () => toggleMenu(true));
+    $("closeMenu").addEventListener("click", () => toggleMenu(false));
+    $("overlay").addEventListener("click", () => toggleMenu(false));
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") toggleMenu(false);
+    });
+
+    lucide.createIcons();
+
+    if (hasConfig) {
+      const { createClient } = supabase;
+      db = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+      loadReviews();
+      // Atualiza a lista periodicamente para mostrar novas avaliações.
+      setInterval(loadReviews, 30000);
+    } else {
+      $("reviewList").innerHTML = '<div class="empty"><strong>Quase pronto!</strong><span>Configure a chave pública do Supabase para ativar as avaliações.</span></div>';
+    }
+  </script>
+</body>
+</html>
