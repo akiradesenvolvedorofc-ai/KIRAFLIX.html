@@ -4,7 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#08080c">
-<title>KiraFlix — Central de Avaliações</title>
+<meta name="description" content="Central oficial de avaliações do KiraFlix">
+<title>KiraFlix — Avaliações</title>
 
 <script src="https://unpkg.com/lucide@latest"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -53,6 +54,8 @@ a { color:inherit; text-decoration:none; }
   z-index:0;
 }
 
+/* HEADER */
+
 header {
   height:82px;
   display:flex;
@@ -62,8 +65,9 @@ header {
   position:relative;
   z-index:10;
   border-bottom:1px solid var(--border);
-  background:rgba(8,8,12,.72);
-  backdrop-filter:blur(16px);
+  background:rgba(8,8,12,.78);
+  backdrop-filter:blur(18px);
+  -webkit-backdrop-filter:blur(18px);
 }
 
 .logo {
@@ -93,6 +97,12 @@ header {
   border-color:var(--red);
   background:#ff2a2a12;
 }
+
+.menu-btn:active,.close-btn:active {
+  transform:scale(.9) rotate(5deg);
+}
+
+/* MAIN */
 
 main {
   width:min(1120px,92%);
@@ -141,6 +151,8 @@ h1 em {
   margin:auto;
 }
 
+/* ESTATÍSTICAS */
+
 .stats {
   display:grid;
   grid-template-columns:repeat(3,1fr);
@@ -174,6 +186,8 @@ h1 em {
   margin-top:4px;
 }
 
+/* PAINÉIS */
+
 .layout {
   display:grid;
   grid-template-columns:minmax(0,1fr) minmax(300px,.85fr);
@@ -187,6 +201,7 @@ h1 em {
   border-radius:20px;
   padding:24px;
   box-shadow:0 18px 55px #0003;
+  position:relative;
 }
 
 .panel h2 {
@@ -201,6 +216,8 @@ h1 em {
   margin-bottom:22px;
 }
 
+/* FORMULÁRIO */
+
 .field { margin-bottom:17px; }
 
 .field label {
@@ -212,8 +229,7 @@ h1 em {
 }
 
 .field input,
-.field textarea,
-.field select {
+.field textarea {
   width:100%;
   border:1px solid var(--border);
   outline:none;
@@ -225,58 +241,9 @@ h1 em {
 }
 
 .field input:focus,
-.field textarea:focus,
-.field select:focus {
+.field textarea:focus {
   border-color:#ff2a2a99;
   box-shadow:0 0 0 3px #ff2a2a15;
-}
-
-/* DROPDOWNS PREMIUM */
-
-.field select,
-.reviews-head select {
-  appearance:none;
-  -webkit-appearance:none;
-  -moz-appearance:none;
-  color:#f8fafc;
-  cursor:pointer;
-  font-weight:600;
-  background-color:#101017;
-
-  background-image:
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='%23ff5555' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E"),
-    linear-gradient(135deg,#1a1116,#101017);
-
-  background-repeat:no-repeat,no-repeat;
-  background-position:right 14px center,left top;
-  background-size:18px,100% 100%;
-  padding-right:44px;
-  box-shadow:inset 0 1px 0 #ffffff08,0 5px 16px #0002;
-}
-
-.field select:hover,
-.reviews-head select:hover {
-  border-color:#ff2a2a88;
-  background-color:#171019;
-}
-
-.field select:focus,
-.reviews-head select:focus {
-  border-color:var(--red);
-  box-shadow:0 0 0 3px #ff2a2a20,0 8px 24px #0004;
-}
-
-.field select option,
-.reviews-head select option {
-  color:#f8fafc;
-  background:#15151d;
-  padding:12px;
-}
-
-.field select option:checked,
-.reviews-head select option:checked {
-  color:#fff;
-  background:#8f1018;
 }
 
 .field textarea {
@@ -289,6 +256,165 @@ h1 em {
 .field textarea::placeholder {
   color:#626775;
 }
+
+/* DROPDOWNS PERSONALIZADOS */
+
+.native-select-hidden {
+  display:none !important;
+}
+
+.custom-select {
+  position:relative;
+  width:100%;
+}
+
+.custom-select-trigger {
+  width:100%;
+  min-height:52px;
+  padding:13px 16px;
+  border:1px solid #ffffff15;
+  border-radius:14px;
+  background:
+    radial-gradient(ellipse at right top,#ff2a2a12,transparent 65%),
+    linear-gradient(135deg,#19141b,#101017);
+  color:#f8fafc;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  text-align:left;
+  font-weight:600;
+  transition:.25s;
+  box-shadow:inset 0 1px 0 #ffffff08,0 5px 18px #0003;
+}
+
+.custom-select-trigger:hover,
+.custom-select.open .custom-select-trigger {
+  border-color:#ff2a2a99;
+  box-shadow:0 0 0 3px #ff2a2a16,0 8px 25px #0005;
+}
+
+.custom-select-arrow {
+  color:#ff4545;
+  transition:transform .25s;
+  flex-shrink:0;
+}
+
+.custom-select.open .custom-select-arrow {
+  transform:rotate(180deg);
+}
+
+.custom-select-menu {
+  position:absolute;
+  top:calc(100% + 9px);
+  left:0;
+  right:0;
+  z-index:103;
+  padding:7px;
+  border:1px solid #ff2a2a44;
+  border-radius:16px;
+
+  background:
+    radial-gradient(ellipse at top right,#ff2a2a20,transparent 55%),
+    linear-gradient(145deg,#1b171e,#101015);
+
+  box-shadow:
+    0 20px 60px #000c,
+    0 0 25px #ff202018;
+
+  opacity:0;
+  visibility:hidden;
+  pointer-events:none;
+  transform:translateY(-8px) scale(.98);
+  transform-origin:top;
+  transition:.22s ease;
+
+  max-height:260px;
+  overflow-y:auto;
+}
+
+.custom-select.open .custom-select-menu {
+  opacity:1;
+  visibility:visible;
+  pointer-events:auto;
+  transform:translateY(0) scale(1);
+}
+
+.custom-select-option {
+  width:100%;
+  min-height:44px;
+  padding:12px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  color:#d1d5db;
+  background:transparent;
+  border:1px solid transparent;
+  border-radius:10px;
+  text-align:left;
+  font-size:14px;
+  transition:.2s;
+}
+
+.custom-select-option:hover {
+  color:white;
+  background:#ff2a2a16;
+  border-color:#ff2a2a30;
+}
+
+.custom-select-option.selected {
+  color:white;
+  background:linear-gradient(100deg,#ff2a2a25,#ff2a2a08);
+  border-color:#ff2a2a45;
+}
+
+.custom-select-option .check {
+  color:#ff4444;
+  font-weight:900;
+  opacity:0;
+}
+
+.custom-select-option.selected .check {
+  opacity:1;
+}
+
+.custom-select-menu::-webkit-scrollbar {
+  width:5px;
+}
+
+.custom-select-menu::-webkit-scrollbar-thumb {
+  background:#ff2a2a88;
+  border-radius:20px;
+}
+
+/* BACKDROP DOS DROPDOWNS */
+
+.dropdown-backdrop {
+  position:fixed;
+  inset:0;
+  z-index:100;
+
+  background:
+    radial-gradient(ellipse at center,#8f10183b,transparent 65%),
+    rgba(0,0,0,.76);
+
+  backdrop-filter:blur(8px) saturate(125%);
+  -webkit-backdrop-filter:blur(8px) saturate(125%);
+
+  opacity:0;
+  visibility:hidden;
+  pointer-events:none;
+  transition:.25s;
+}
+
+.dropdown-backdrop.active {
+  opacity:1;
+  visibility:visible;
+  pointer-events:auto;
+}
+
+/* NOTAS */
 
 .rating-picker {
   display:flex;
@@ -319,6 +445,8 @@ h1 em {
   margin-left:5px;
 }
 
+/* BOTÃO */
+
 .btn {
   width:100%;
   border:0;
@@ -340,11 +468,17 @@ h1 em {
   box-shadow:0 13px 32px #ff2a2a50;
 }
 
+.btn:active {
+  transform:scale(.97);
+}
+
 .btn:disabled {
   opacity:.6;
   cursor:not-allowed;
   transform:none;
 }
+
+/* AVISOS */
 
 .notice {
   display:none;
@@ -375,6 +509,8 @@ h1 em {
   border:1px solid #3b82f655;
 }
 
+/* AVALIAÇÕES */
+
 .reviews-head {
   display:flex;
   align-items:center;
@@ -384,17 +520,6 @@ h1 em {
 }
 
 .reviews-head h2 { margin:0; }
-
-.reviews-head select {
-  max-width:165px;
-  min-height:42px;
-  border:1px solid var(--border);
-  border-radius:12px;
-  padding:9px 38px 9px 13px;
-  color:white;
-  background-color:#101017;
-  outline:none;
-}
 
 .review-list {
   display:flex;
@@ -490,6 +615,8 @@ h1 em {
   font-size:13px;
 }
 
+/* RODAPÉ */
+
 .footer {
   text-align:center;
   color:#555b67;
@@ -500,14 +627,12 @@ h1 em {
 
 .footer b { color:#a1a1aa; }
 
-/* BACKDROP PREMIUM */
+/* BACKDROP DO MENU */
 
 .overlay {
   position:fixed;
   inset:0;
   z-index:98;
-  opacity:0;
-  visibility:hidden;
 
   background:
     radial-gradient(ellipse at 78% 45%,#8f10183d 0%,transparent 48%),
@@ -516,10 +641,9 @@ h1 em {
   backdrop-filter:blur(0px) saturate(100%);
   -webkit-backdrop-filter:blur(0px) saturate(100%);
 
-  transition:
-    opacity .32s ease,
-    visibility .32s ease,
-    backdrop-filter .32s ease;
+  opacity:0;
+  visibility:hidden;
+  transition:.32s ease;
 }
 
 .overlay.active {
@@ -529,7 +653,7 @@ h1 em {
   -webkit-backdrop-filter:blur(9px) saturate(125%);
 }
 
-/* MENU LATERAL PREMIUM */
+/* MENU LATERAL */
 
 .side-menu {
   position:fixed;
@@ -629,24 +753,47 @@ h1 em {
   font-size:11px;
 }
 
+/* RESPONSIVIDADE */
+
 @media(max-width:800px) {
   .layout { grid-template-columns:1fr; }
 }
 
 @media(max-width:520px) {
-  header { height:70px; padding:0 4%; }
-  main { width:92%; padding-top:28px; }
-  .hero { padding:16px 2px 28px; }
+  header {
+    height:70px;
+    padding:0 4%;
+  }
+
+  main {
+    width:92%;
+    padding-top:28px;
+  }
+
+  .hero {
+    padding:16px 2px 28px;
+  }
+
   .stats { gap:8px; }
-  .stat { padding:17px 7px; border-radius:14px; }
+
+  .stat {
+    padding:17px 7px;
+    border-radius:14px;
+  }
+
   .stat span { font-size:10px; }
-  .panel { padding:19px 15px; border-radius:17px; }
+
+  .panel {
+    padding:19px 15px;
+    border-radius:17px;
+  }
+
   .reviews-head {
     align-items:flex-start;
     flex-direction:column;
   }
-  .reviews-head select {
-    max-width:none;
+
+  .reviews-head .custom-select {
     width:100%;
   }
 }
@@ -654,6 +801,7 @@ h1 em {
 </head>
 
 <body>
+
 <div class="bg-glow"></div>
 
 <header>
@@ -681,6 +829,7 @@ h1 em {
 </section>
 
 <section class="stats">
+
   <div class="stat">
     <strong id="average">—</strong>
     <span>MÉDIA GERAL</span>
@@ -696,11 +845,13 @@ h1 em {
     <strong id="positive">—</strong>
     <span>NOTAS 4 E 5</span>
   </div>
+
 </section>
 
 <section class="layout">
 
 <div class="panel">
+
   <h2>Deixe sua avaliação</h2>
 
   <p class="panel-sub">
@@ -727,6 +878,7 @@ h1 em {
         <button class="star-btn" type="button" data-rating="3">★</button>
         <button class="star-btn" type="button" data-rating="4">★</button>
         <button class="star-btn" type="button" data-rating="5">★</button>
+
         <span class="rating-hint" id="ratingHint">
           Selecione de 1 a 5
         </span>
@@ -734,9 +886,9 @@ h1 em {
     </div>
 
     <div class="field">
-      <label for="category">O que você deseja avaliar?</label>
+      <label>O que você deseja avaliar?</label>
 
-      <select id="category" required>
+      <select id="category">
         <option value="Experiência geral">Experiência geral</option>
         <option value="Site">Site</option>
         <option value="Aplicativo">Aplicativo</option>
@@ -778,7 +930,7 @@ h1 em {
       </p>
     </div>
 
-    <select id="sortReviews" aria-label="Ordenar avaliações">
+    <select id="sortReviews">
       <option value="newest">Mais recentes</option>
       <option value="highest">Melhores notas</option>
       <option value="lowest">Menores notas</option>
@@ -790,6 +942,7 @@ h1 em {
   </div>
 
 </div>
+
 </section>
 
 <footer class="footer">
@@ -800,17 +953,24 @@ h1 em {
 
 </main>
 
+<!-- BACKDROP DO MENU -->
 <div class="overlay" id="overlay"></div>
 
+<!-- MENU LATERAL -->
 <aside class="side-menu" id="sideMenu">
+
   <div class="menu-header">
-    <span class="logo" style="font-size:21px">Kira<span>Flix</span></span>
+    <span class="logo" style="font-size:21px">
+      Kira<span>Flix</span>
+    </span>
+
     <button class="close-btn" id="closeMenu">
       <i data-lucide="x"></i>
     </button>
   </div>
 
   <div class="menu-body">
+
     <div class="menu-label">Navegação</div>
 
     <a class="menu-item" href="https://kiraflix.qd.je/">
@@ -828,27 +988,31 @@ h1 em {
     </div>
 
     <a class="menu-item"
-      href="https://discord.gg/6TaQ3j6YNR"
-      target="_blank" rel="noopener noreferrer">
+       href="https://discord.gg/6TaQ3j6YNR"
+       target="_blank" rel="noopener noreferrer">
       <i data-lucide="message-circle"></i>
       Discord
     </a>
+
   </div>
 
   <div class="menu-footer">
     KiraFlix — Central de Avaliações
   </div>
+
 </aside>
 
 <script>
 
-/* CONFIGURAÇÃO SUPABASE */
+/* =====================================
+   CONFIGURAÇÃO SUPABASE
+===================================== */
 
 const SUPABASE_URL =
   "https://ahtuhrzizlwcvrgbzivx.supabase.co";
 
 const SUPABASE_ANON_KEY =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFodHVocnppemx3Y3ZyZ2J6aXZ4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTE1MDY4NzMsImV4cCI6MjEwNzA4Mjg3M30.Wy2EfRP8UicZBi-ViUOVd_K6E19Peq1PIPVlVuEV7wI";
+  "COLE_SUA_CHAVE_ANON_OU_PUBLISHABLE_AQUI";
 
 const hasConfig =
   SUPABASE_URL.startsWith("https://") &&
@@ -861,6 +1025,10 @@ let allReviews = [];
 
 const $ = id => document.getElementById(id);
 
+/* =====================================
+   AVISOS
+===================================== */
+
 function showNotice(message,type="info") {
   const el = $("formNotice");
   el.textContent = message;
@@ -872,7 +1040,9 @@ function clearNotice() {
   $("formNotice").textContent = "";
 }
 
-/* NOTAS */
+/* =====================================
+   NOTAS
+===================================== */
 
 function setRating(value) {
   selectedRating = value;
@@ -881,6 +1051,7 @@ function setRating(value) {
     const active = Number(button.dataset.rating) <= value;
 
     button.classList.toggle("active",active);
+
     button.setAttribute(
       "aria-pressed",
       String(Number(button.dataset.rating) === value)
@@ -897,7 +1068,9 @@ document.querySelectorAll(".star-btn").forEach(button => {
   });
 });
 
-/* DATAS */
+/* =====================================
+   DATAS
+===================================== */
 
 function formatDate(value) {
   return new Intl.DateTimeFormat("pt-BR",{
@@ -905,7 +1078,9 @@ function formatDate(value) {
   }).format(new Date(value));
 }
 
-/* ESTATÍSTICAS */
+/* =====================================
+   ESTATÍSTICAS
+===================================== */
 
 function renderStats(reviews) {
   const count = reviews.length;
@@ -936,16 +1111,24 @@ function renderStats(reviews) {
     : "☆☆☆☆☆";
 }
 
-/* LISTA DE AVALIAÇÕES */
+/* =====================================
+   EXIBIR AVALIAÇÕES
+===================================== */
 
 function renderReviews() {
   const sort = $("sortReviews").value;
   const reviews = [...allReviews];
 
   if (sort === "highest") {
-    reviews.sort((a,b) => b.rating - a.rating);
+    reviews.sort((a,b) =>
+      b.rating - a.rating ||
+      new Date(b.created_at) - new Date(a.created_at)
+    );
   } else if (sort === "lowest") {
-    reviews.sort((a,b) => a.rating - b.rating);
+    reviews.sort((a,b) =>
+      a.rating - b.rating ||
+      new Date(b.created_at) - new Date(a.created_at)
+    );
   } else {
     reviews.sort(
       (a,b) => new Date(b.created_at) - new Date(a.created_at)
@@ -959,6 +1142,9 @@ function renderReviews() {
     const empty = document.createElement("div");
     empty.className = "empty";
 
+    const icon = document.createElement("i");
+    icon.setAttribute("data-lucide","messages-square");
+
     const title = document.createElement("strong");
     title.textContent = "Ainda não há avaliações";
 
@@ -966,8 +1152,10 @@ function renderReviews() {
     desc.textContent =
       "Seja a primeira pessoa a avaliar o KiraFlix!";
 
-    empty.append(title,desc);
+    empty.append(icon,title,desc);
     list.append(empty);
+
+    lucide.createIcons();
     return;
   }
 
@@ -1015,7 +1203,9 @@ function renderReviews() {
   });
 }
 
-/* BUSCAR AVALIAÇÕES */
+/* =====================================
+   BUSCAR AVALIAÇÕES NO SUPABASE
+===================================== */
 
 async function loadReviews() {
   if (!db) return;
@@ -1027,10 +1217,11 @@ async function loadReviews() {
     .limit(200);
 
   if (error) {
+    console.error("Erro ao carregar avaliações:",error);
+
     $("reviewList").textContent =
       "Não foi possível carregar as avaliações. Confira a configuração do Supabase.";
 
-    console.error(error);
     return;
   }
 
@@ -1040,7 +1231,9 @@ async function loadReviews() {
   renderReviews();
 }
 
-/* ENVIAR AVALIAÇÃO */
+/* =====================================
+   PUBLICAR AVALIAÇÃO
+===================================== */
 
 $("reviewForm").addEventListener("submit",async event => {
   event.preventDefault();
@@ -1080,51 +1273,185 @@ $("reviewForm").addEventListener("submit",async event => {
   }
 
   const button = $("submitBtn");
+
   button.disabled = true;
   button.textContent = "Publicando...";
 
-  const {error} = await db
-    .from("kiraflix_reviews")
-    .insert([{
-      nickname,
-      rating:selectedRating,
-      category,
-      title,
-      message
-    }]);
+  try {
+    const {error} = await db
+      .from("kiraflix_reviews")
+      .insert([{
+        nickname,
+        rating:selectedRating,
+        category,
+        title,
+        message
+      }]);
 
-  button.disabled = false;
-  button.innerHTML =
-    '<i data-lucide="send" width="18"></i> Publicar avaliação';
+    if (error) throw error;
 
-  lucide.createIcons();
+    $("reviewForm").reset();
+    setRating(0);
 
-  if (error) {
-    console.error(error);
+    showNotice(
+      "Sua avaliação foi publicada! Obrigado por ajudar o KiraFlix a crescer. ❤️",
+      "success"
+    );
+
+    await loadReviews();
+
+  } catch(error) {
+    console.error("Erro ao publicar:",error);
 
     showNotice(
       "Não foi possível publicar. Confira as políticas RLS do Supabase.",
       "error"
     );
-    return;
+
+  } finally {
+    button.disabled = false;
+    button.innerHTML =
+      '<i data-lucide="send" width="18"></i> Publicar avaliação';
+
+    lucide.createIcons();
   }
-
-  $("reviewForm").reset();
-  setRating(0);
-
-  showNotice(
-    "Sua avaliação foi publicada! Obrigado por ajudar o KiraFlix a crescer. ❤️",
-    "success"
-  );
-
-  await loadReviews();
 });
 
-/* ORDENAÇÃO */
+/* =====================================
+   DROPDOWNS PERSONALIZADOS
+===================================== */
 
-$("sortReviews").addEventListener("change",renderReviews);
+const dropdownBackdrop = document.createElement("div");
+dropdownBackdrop.className = "dropdown-backdrop";
+dropdownBackdrop.setAttribute("aria-hidden","true");
+document.body.appendChild(dropdownBackdrop);
 
-/* MENU E BACKDROP */
+function closeCustomDropdowns() {
+  document.querySelectorAll(".custom-select.open")
+    .forEach(dropdown => {
+      dropdown.classList.remove("open");
+
+      const trigger = dropdown.querySelector(
+        ".custom-select-trigger"
+      );
+
+      if (trigger) {
+        trigger.setAttribute("aria-expanded","false");
+      }
+    });
+
+  dropdownBackdrop.classList.remove("active");
+}
+
+function createCustomDropdown(selectId) {
+  const original = $(selectId);
+
+  if (!original || original.dataset.customized) return;
+
+  original.dataset.customized = "true";
+  original.classList.add("native-select-hidden");
+
+  const wrapper = document.createElement("div");
+  wrapper.className = "custom-select";
+
+  const trigger = document.createElement("button");
+  trigger.type = "button";
+  trigger.className = "custom-select-trigger";
+  trigger.setAttribute("aria-haspopup","listbox");
+  trigger.setAttribute("aria-expanded","false");
+
+  const label = document.createElement("span");
+  const arrow = document.createElement("span");
+
+  arrow.className = "custom-select-arrow";
+  arrow.innerHTML = '<i data-lucide="chevron-down"></i>';
+
+  trigger.append(label,arrow);
+
+  const menu = document.createElement("div");
+  menu.className = "custom-select-menu";
+  menu.setAttribute("role","listbox");
+
+  function updateSelection() {
+    const selected = original.options[original.selectedIndex];
+
+    label.textContent = selected
+      ? selected.textContent
+      : "Selecione uma opção";
+
+    menu.querySelectorAll(".custom-select-option")
+      .forEach((button,index) => {
+        const active =
+          original.options[index].value === original.value;
+
+        button.classList.toggle("selected",active);
+        button.setAttribute("aria-selected",String(active));
+      });
+  }
+
+  Array.from(original.options).forEach(option => {
+    const item = document.createElement("button");
+
+    item.type = "button";
+    item.className = "custom-select-option";
+    item.setAttribute("role","option");
+
+    const text = document.createElement("span");
+    text.textContent = option.textContent;
+
+    const check = document.createElement("span");
+    check.className = "check";
+    check.textContent = "✓";
+
+    item.append(text,check);
+
+    item.addEventListener("click",() => {
+      original.value = option.value;
+
+      original.dispatchEvent(
+        new Event("change",{bubbles:true})
+      );
+
+      updateSelection();
+      closeCustomDropdowns();
+    });
+
+    menu.appendChild(item);
+  });
+
+  trigger.addEventListener("click",() => {
+    const wasOpen = wrapper.classList.contains("open");
+
+    closeCustomDropdowns();
+
+    if (!wasOpen) {
+      wrapper.classList.add("open");
+      trigger.setAttribute("aria-expanded","true");
+
+      dropdownBackdrop.classList.add("active");
+    }
+  });
+
+  original.addEventListener("change",updateSelection);
+
+  wrapper.append(trigger,menu);
+
+  original.parentNode.insertBefore(wrapper,original);
+
+  updateSelection();
+}
+
+createCustomDropdown("category");
+createCustomDropdown("sortReviews");
+
+dropdownBackdrop.addEventListener(
+  "click",
+  closeCustomDropdowns
+);
+
+/* =====================================
+   MENU LATERAL
+===================================== */
 
 function toggleMenu(force) {
   const active = typeof force === "boolean"
@@ -1135,17 +1462,32 @@ function toggleMenu(force) {
   $("overlay").classList.toggle("active",active);
 }
 
-$("openMenu").addEventListener("click",() => toggleMenu(true));
-$("closeMenu").addEventListener("click",() => toggleMenu(false));
-$("overlay").addEventListener("click",() => toggleMenu(false));
+$("openMenu").addEventListener("click",() => {
+  toggleMenu(true);
+});
+
+$("closeMenu").addEventListener("click",() => {
+  toggleMenu(false);
+});
+
+$("overlay").addEventListener("click",() => {
+  toggleMenu(false);
+});
+
+/* =====================================
+   TECLADO / VOLTAR
+===================================== */
 
 document.addEventListener("keydown",event => {
   if (event.key === "Escape") {
+    closeCustomDropdowns();
     toggleMenu(false);
   }
 });
 
-/* INICIALIZAÇÃO */
+/* =====================================
+   INICIALIZAÇÃO
+===================================== */
 
 lucide.createIcons();
 
@@ -1159,7 +1501,7 @@ if (hasConfig) {
 
   loadReviews();
 
-  // Atualiza as avaliações a cada 30 segundos.
+  // Atualizar avaliações a cada 30 segundos.
   setInterval(loadReviews,30000);
 
 } else {
@@ -1168,5 +1510,6 @@ if (hasConfig) {
 }
 
 </script>
+
 </body>
 </html>
